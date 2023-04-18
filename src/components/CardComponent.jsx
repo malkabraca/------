@@ -63,7 +63,9 @@ const CardComponent = ({
       </CardActionArea>
       <CardHeader title={title} subheader={subTitle}></CardHeader>
       <CardContent>
-        <Typography>{description}</Typography>
+        <Typography>Phone: {title}</Typography>
+        <Typography>Address: {title}</Typography>
+        <Typography>Card number: {title}</Typography>
       </CardContent>
       <CardActions  sx={{ display: "flex", justifyContent: "space-between" }}>
       <div sx= {{ display: "flex", flex: 1, justifyContent: "flex-start" }}>
