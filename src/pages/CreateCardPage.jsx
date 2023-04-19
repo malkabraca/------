@@ -16,7 +16,6 @@ import validateCreateSchema from "../validation/createValidation";
 import atom from "../logo.svg";
 import { toast } from "react-toastify";
 
-
 const CreateCardPage = () => {
   const [inputState, setInputState] = useState({
     url: "",
@@ -25,15 +24,17 @@ const CreateCardPage = () => {
     subTitle: "",
     description: "",
     phone: "",
-    email:"",
-    web:"",
-    state:"",
-    country:"",
-    city:"",
-    street:"",
-    houseNumber:"",
-    zipCode:"",
+    email: "",
+    web: "",
+    state: "",
+    country: "",
+    city: "",
+    street: "",
+    houseNumber: "",
+    zipCode: "",
   });
+  let joiResponse = validateCreateSchema(inputState);
+  
   const [inputsErrorsState, setInputsErrorsState] = useState(null);
   const navigate = useNavigate();
   const handleSaveBtnClick = async (ev) => {
@@ -62,7 +63,39 @@ const CreateCardPage = () => {
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
   };
+  const resetForm = () => {
+    let newInputState = JSON.parse(JSON.stringify(inputState));
+    newInputState = {
+      firstName: "",
+      middleName: "",
+      lastName: "",
+      phone: "",
+      email: "",
+      password: "",
+      imageUrl: "",
+      imageAlt: "",
+      state: "",
+      country: "",
+      city: "",
+      street: "",
+      houseNumber: "",
+      zipCode: "",
+      biz: false,
+    };
 
+    setInputState(newInputState);
+
+    joiResponse = validateCreateSchema(inputState);
+    if (!joiResponse) {
+      return;
+    }
+
+    let newjoiResponse = JSON.parse(JSON.stringify(joiResponse));
+    Object.keys(newjoiResponse).forEach((index) => {
+      newjoiResponse[index] = "";
+    });
+    inputsErrorsState(newjoiResponse);
+  };
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -91,8 +124,8 @@ const CreateCardPage = () => {
           src={inputState.url ? inputState.url : atom}
         />
         <Box component="div" noValidate sx={{ mt: 3 }}>
-        <Grid container spacing={2}>
-            <Grid item xs={12}sm={6}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
                 id="url"
@@ -110,7 +143,7 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12}sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
                 name="alt"
@@ -128,7 +161,7 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12}sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
@@ -147,7 +180,7 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12}sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
@@ -167,7 +200,7 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12}sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
@@ -186,7 +219,7 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12}sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
@@ -205,7 +238,7 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12}sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
                 id="state"
@@ -223,7 +256,7 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12}sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
@@ -242,7 +275,7 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12}sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
@@ -261,7 +294,7 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12}sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
@@ -280,7 +313,7 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12}sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
@@ -299,7 +332,7 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12}sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
                 id="zipCode"
@@ -317,7 +350,7 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12}sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
@@ -336,7 +369,7 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12}sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
                 id="web"
@@ -381,7 +414,7 @@ const CreateCardPage = () => {
                 variant="contained"
                 sx={{ mt: 1, mb: 1 }}
                 //href={ROUTES.REGISTER}
-                // onClick={resetForm}
+                onClick={resetForm}
                 endIcon={<CachedIcon />}
               ></Button>
             </Grid>
