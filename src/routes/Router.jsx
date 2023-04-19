@@ -30,6 +30,7 @@ const Router = () => {
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.ABOUT} element={<About />} />
+      <Route path={ROUTES.CREATE} element={<CreateCardPage />} />
      
       <Route
         path={ROUTES.LOGOUT}
@@ -69,7 +70,6 @@ const Router = () => {
       </Route>
       MyCards
       <Route path="/myCards" element={<MyCards />} />
-      <Route path="/creat" element={<CreateCardPage />} />
 
       <Route path="*" element={<h1>404</h1>} />
     </Routes>

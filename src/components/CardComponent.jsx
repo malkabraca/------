@@ -11,6 +11,7 @@ import {
   Chip,
   Icon,
   IconButton,
+  Box,
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { Fragment } from "react";
@@ -19,31 +20,15 @@ import CallIcon from "@mui/icons-material/Call";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
-/*
-    img
-    title
-    price
-    description
-    props = {
-        img:"http://az837918.vo.msecnd.net/publishedimages/articles/1733/en-CA/images/1/free-download-this-stunning-alberta-scene-for-your-device-background-image-L-6.jpg"
-        title:"nature"
-        price:"112"
-        description:"Here’s a gift to help bring a little more beauty to your life in September: An image of the world-famous Spirit Island at Maligne Lake in Alberta’s Jasper National Park, specially prepared to serve as a wallpaper or background image for your computer, tablet or mobile phone.
-        Use the links below to download the wallpaper in the appropriate size, and enjoy the scene all month long. We’ll create another beautiful Alberta image next month for you to enjoy.
-        If you want to see Spirit Island and Jasper National Park under the stars yourself (don’t forget to check out the park’s Dark Sky Festival from Oct. 14 to 23), scroll down for more information."
-        id:1
-        onDelete:handleDeleteFromInitialCardsArr
-        onEdit:handleEditFromInitialCardsArr
-    }
-*/
-
-// const CardComponent = (props) => { - - - }
 const CardComponent = ({
   img,
   title,
   subTitle,
   description,
   id,
+  phone,
+  address,
+  cardNumber,
   onDelete,
   onEdit,
   canEdit,
@@ -63,12 +48,12 @@ const CardComponent = ({
       </CardActionArea>
       <CardHeader title={title} subheader={subTitle}></CardHeader>
       <CardContent>
-        <Typography>Phone: {title}</Typography>
-        <Typography>Address: {title}</Typography>
-        <Typography>Card number: {title}</Typography>
+        <Typography>Phone: {phone}</Typography>
+        <Typography>Address: {address}</Typography>
+        <Typography>Card number: {cardNumber}</Typography>
       </CardContent>
       <CardActions  sx={{ display: "flex", justifyContent: "space-between" }}>
-      <div sx= {{ display: "flex", flex: 1, justifyContent: "flex-start" }}>
+      <Box sx= {{ display: "flex", flex: 1, justifyContent: "flex-start" }}>
         {canDelete? (
           <Fragment>
             <IconButton color="primary" aria-label="add to shopping cart" onClick={handleDeleteBtnClick}>
@@ -87,15 +72,15 @@ const CardComponent = ({
         ) : (
           ""
         )}
-        </div>
-        <div sx= {{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
+        </Box>
+        <Box sx= {{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
         <IconButton color="primary" aria-label="add to shopping cart">
           <CallIcon />
         </IconButton>
         <IconButton color="primary" aria-label="add to shopping cart">
           <FavoriteIcon />
         </IconButton>
-        </div>
+        </Box>
       </CardActions>
     </Card>
   );

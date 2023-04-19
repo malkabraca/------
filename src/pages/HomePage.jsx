@@ -8,6 +8,8 @@ import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
+import CreatComponentNew from "../components/CreatComponentNew";
+
 
 const HomePage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
@@ -95,6 +97,9 @@ const HomePage = () => {
               subTitle={item.subTitle}
               description={item.description}
               img={item.image ? item.image.url : ""}
+              phone={item.phone}
+              address={item.state+" "+item.country+" "+item.city+" "+item.street+" "+item.houseNumber}
+              cardNumber={item.bizNumber}
               onDelete={handleDeleteFromInitialCardsArr}
               onEdit={handleEditFromInitialCardsArr}
               canEdit={payload && (payload.biz || payload.isAdmin)}
@@ -103,33 +108,8 @@ const HomePage = () => {
           </Grid>
         ))}
       </Grid>
+      <CreatComponentNew canCreate={payload && payload.biz}/>
     </Box>
   );
 };
-
-/*
-  <CardComponent
-              id={item.id}
-              title={item.title}
-              price={item.price}
-              ----
-              onDelete={handleDeleteFromInitialCardsArr}
-              onEdit={handleEditFromInitialCardsArr}
-            />
-  component 1:
-    <CardComponent
-              id={1}
-              ----
-              onDelete={handleDeleteFromInitialCardsArr}
-              onEdit={handleEditFromInitialCardsArr}
-            />
-  component 2:
-    <CardComponent
-              id={2}
-              ----
-              onDelete={handleDeleteFromInitialCardsArr}
-              onEdit={handleEditFromInitialCardsArr}
-            />
-*/
-
 export default HomePage;

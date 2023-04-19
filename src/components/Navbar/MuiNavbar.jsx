@@ -48,6 +48,10 @@ const notAuthPages = [
 //logged in users
 const authedPages = [
   {
+    label: "creat",
+    url: "/creat",
+  },
+  {
     label: "Logout",
     url: ROUTES.LOGOUT,
   },
