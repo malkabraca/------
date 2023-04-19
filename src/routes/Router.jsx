@@ -18,6 +18,7 @@ import NestedPage2 from "../pages/NestedRoutePage/NestedPage2";
 import { AbcOutlined } from "@mui/icons-material";
 import About from "../pages/About";
 import MyCards from "../pages/MyCards";
+import CreateCardPage from "../pages/CreateCardPage";
 
 //element={<ProtectedRoute element={<LogoutPage />} />}
 
@@ -54,7 +55,7 @@ const Router = () => {
           <SuperProtectedRoute
             isAdmin={false}
             isBiz={true}
-            element={<h1>Create card</h1>}
+            element={<CreateCardPage />}
           />
         }
       />
@@ -68,6 +69,7 @@ const Router = () => {
       </Route>
       MyCards
       <Route path="/myCards" element={<MyCards />} />
+      <Route path="/creat" element={<CreateCardPage />} />
 
       <Route path="*" element={<h1>404</h1>} />
     </Routes>

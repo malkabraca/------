@@ -37,6 +37,14 @@ const CreateCardPage = () => {
     address: "",
     description: "",
     phone: "",
+    email:"",
+    wed:"",
+    state:"",
+    country:"",
+    city:"",
+    street:"",
+    housenumber:"",
+    zip:"",
   });
   const [inputsErrorsState, setInputsErrorsState] = useState(null);
   const navigate = useNavigate();
@@ -143,7 +151,7 @@ const CreateCardPage = () => {
           src={inputState.url ? inputState.url : atom}
         />
         <Box component="div" noValidate sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
+        <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
                 fullWidth
@@ -258,6 +266,155 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="state"
+                label="State"
+                name="state"
+                autoComplete="state"
+                value={inputState.state}
+                onChange={handleInputChange}
+              />
+              {inputsErrorsState && inputsErrorsState.state && (
+                <Alert severity="warning">
+                  {inputsErrorsState.state.map((item) => (
+                    <div key={"state-errors" + item}>{item}</div>
+                  ))}
+                </Alert>
+              )}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="country"
+                label="Country"
+                name="country"
+                autoComplete="country"
+                value={inputState.country}
+                onChange={handleInputChange}
+              />
+              {inputsErrorsState && inputsErrorsState.country && (
+                <Alert severity="warning">
+                  {inputsErrorsState.country.map((item) => (
+                    <div key={"country-errors" + item}>{item}</div>
+                  ))}
+                </Alert>
+              )}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="city"
+                label="City"
+                name="city"
+                autoComplete="city"
+                value={inputState.city}
+                onChange={handleInputChange}
+              />
+              {inputsErrorsState && inputsErrorsState.city && (
+                <Alert severity="warning">
+                  {inputsErrorsState.city.map((item) => (
+                    <div key={"city-errors" + item}>{item}</div>
+                  ))}
+                </Alert>
+              )}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="street"
+                label="Street"
+                name="street"
+                autoComplete="street"
+                value={inputState.street}
+                onChange={handleInputChange}
+              />
+              {inputsErrorsState && inputsErrorsState.street && (
+                <Alert severity="warning">
+                  {inputsErrorsState.street.map((item) => (
+                    <div key={"street-errors" + item}>{item}</div>
+                  ))}
+                </Alert>
+              )}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="houseNumber"
+                label="House Number"
+                name="houseNumber"
+                autoComplete="houseNumber"
+                value={inputState.houseNumber}
+                onChange={handleInputChange}
+              />
+              {inputsErrorsState && inputsErrorsState.houseNumber && (
+                <Alert severity="warning">
+                  {inputsErrorsState.houseNumber.map((item) => (
+                    <div key={"houseNumber-errors" + item}>{item}</div>
+                  ))}
+                </Alert>
+              )}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="zipCode"
+                label="Zip Code"
+                name="zipCode"
+                autoComplete="zipCode"
+                value={inputState.zipCode}
+                onChange={handleInputChange}
+              />
+              {inputsErrorsState && inputsErrorsState.zipCode && (
+                <Alert severity="warning">
+                  {inputsErrorsState.zipCode.map((item) => (
+                    <div key={"zipCode-errors" + item}>{item}</div>
+                  ))}
+                </Alert>
+              )}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+                autoComplete="email"
+                value={inputState.email}
+                onChange={handleInputChange}
+              />
+              {inputsErrorsState && inputsErrorsState.email && (
+                <Alert severity="warning">
+                  {inputsErrorsState.email.map((item) => (
+                    <div key={"email-errors" + item}>{item}</div>
+                  ))}
+                </Alert>
+              )}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="web"
+                label="web"
+                name="web"
+                autoComplete="web"
+                value={inputState.web}
+                onChange={handleInputChange}
+              />
+              {inputsErrorsState && inputsErrorsState.web && (
+                <Alert severity="warning">
+                  {inputsErrorsState.web.map((item) => (
+                    <div key={"web-errors" + item}>{item}</div>
+                  ))}
+                </Alert>
+              )}
+            </Grid>
             <Grid item xs={6}>
               <Button
                 fullWidth
@@ -279,25 +436,6 @@ const CreateCardPage = () => {
               </Button>
             </Grid>
           </Grid>
-          {/* <Button
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            onClick={() => {
-              navigate("/edit/2");
-            }}
-          >
-            edit 2
-          </Button> */}
-          {/* <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link to={ROUTES.REGISTER}>
-                <Typography variant="body2">
-                  Did not have an account? Sign up
-                </Typography>
-              </Link>
-            </Grid>
-          </Grid> */}
         </Box>
       </Box>
     </Container>
