@@ -19,6 +19,7 @@ import CreateIcon from "@mui/icons-material/Create";
 import CallIcon from "@mui/icons-material/Call";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import axios from "axios";
 
 const CardComponent = ({
   img,
@@ -32,7 +33,7 @@ const CardComponent = ({
   onDelete,
   onEdit,
   canEdit,
-  canDelete
+  canDelete,
 }) => {
   const handleDeleteBtnClick = () => {
     console.log("id", id);
@@ -40,6 +41,13 @@ const CardComponent = ({
   };
   const handleEditBtnClick = () => {
     onEdit(id);
+  };
+  const handleLoveBtnClick = async () => {
+    try {
+      await axios.patch("/cards/card-like/" + id);
+    } catch (err) {
+      console.log("error when change fav", err.response.data);
+    }
   };
   return (
     <Card square raised>
@@ -52,34 +60,42 @@ const CardComponent = ({
         <Typography>Address: {address}</Typography>
         <Typography>Card number: {cardNumber}</Typography>
       </CardContent>
-      <CardActions  sx={{ display: "flex", justifyContent: "space-between" }}>
-      <Box sx= {{ display: "flex", flex: 1, justifyContent: "flex-start" }}>
-        {canDelete? (
-          <Fragment>
-            <IconButton color="primary" aria-label="add to shopping cart" onClick={handleDeleteBtnClick}>
-              <DeleteOutlineIcon />
-            </IconButton>
-          </Fragment>
-        ) : (
-          ""
-        )}
-        {canEdit ? (
-          <Fragment>
-            <IconButton color="primary" aria-label="add to shopping cart" onClick={handleEditBtnClick}>
-              <CreateIcon />
-            </IconButton>
-          </Fragment>
-        ) : (
-          ""
-        )}
+      <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-start" }}>
+          {canDelete ? (
+            <Fragment>
+              <IconButton
+                color="primary"
+                aria-label="add to shopping cart"
+                onClick={handleDeleteBtnClick}
+              >
+                <DeleteOutlineIcon />
+              </IconButton>
+            </Fragment>
+          ) : (
+            ""
+          )}
+          {canEdit ? (
+            <Fragment>
+              <IconButton
+                color="primary"
+                aria-label="add to shopping cart"
+                onClick={handleEditBtnClick}
+              >
+                <CreateIcon />
+              </IconButton>
+            </Fragment>
+          ) : (
+            ""
+          )}
         </Box>
-        <Box sx= {{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-        <IconButton color="primary" aria-label="add to shopping cart">
-          <CallIcon />
-        </IconButton>
-        <IconButton color="primary" aria-label="add to shopping cart">
-          <FavoriteIcon />
-        </IconButton>
+        <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
+          <IconButton color="primary" aria-label="add to shopping cart">
+            <CallIcon />
+          </IconButton>
+          <IconButton color="primary" aria-label="add to shopping cart">
+            <FavoriteIcon onClick={handleLoveBtnClick} />
+          </IconButton>
         </Box>
       </CardActions>
     </Card>

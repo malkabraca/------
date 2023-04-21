@@ -1,5 +1,3 @@
-import { Box, Grid } from "@mui/material";
-import CardComponent from "../components/CardComponent";
 import { Box, CircularProgress, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -10,10 +8,8 @@ import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
-import CreatComponentNew from "../components/CreatComponentNew";
 
-
-const FavCards = () =>{
+const HomePage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
   const [cardsArr, setCardsArr] = useState(null);
   const navigate = useNavigate();
@@ -88,31 +84,58 @@ const FavCards = () =>{
     return <CircularProgress />;
   }
 
+  const delete1 = () => {};
   return (
     <Box>
+      <h1>Cards page</h1>
+      <h3>Here you can find cards of all categories</h3>
       <Grid container spacing={2}>
         {cardsArr.map((item) => (
           <Grid item xs={4} key={item._id + Date.now()}>
             <CardComponent
               id={item._id}
+              phone={item.phone}
+              address={item.street + " " + item.houseNumber + ", " + item.city}
+              cardNumber={item.bizNumber}
               title={item.title}
               subTitle={item.subTitle}
               description={item.description}
               img={item.image ? item.image.url : ""}
-              phone={item.phone}
-              address={item.state+" "+item.country+" "+item.city+" "+item.street+" "+item.houseNumber}
-              cardNumber={item.bizNumber}
               onDelete={handleDeleteFromInitialCardsArr}
+              onDeletefav={delete1}
               onEdit={handleEditFromInitialCardsArr}
               canEdit={payload && (payload.biz || payload.isAdmin)}
-              canDelete={payload && (payload.isAdmin)}
             />
           </Grid>
         ))}
       </Grid>
-      <CreatComponentNew canCreate={payload && payload.biz}/>
     </Box>
   );
 };
 
-export  default FavCards;
+/*
+  <CardComponent
+              id={item.id}
+              title={item.title}
+              price={item.price}
+              ----
+              onDelete={handleDeleteFromInitialCardsArr}
+              onEdit={handleEditFromInitialCardsArr}
+            />
+  component 1:
+    <CardComponent
+              id={1}
+              ----
+              onDelete={handleDeleteFromInitialCardsArr}
+              onEdit={handleEditFromInitialCardsArr}
+            />
+  component 2:
+    <CardComponent
+              id={2}
+              ----
+              onDelete={handleDeleteFromInitialCardsArr}
+              onEdit={handleEditFromInitialCardsArr}
+            />
+*/
+
+export default HomePage;
