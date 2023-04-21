@@ -12,6 +12,7 @@ import {
   Icon,
   IconButton,
   Box,
+  Checkbox,
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { Fragment } from "react";
@@ -20,6 +21,8 @@ import CallIcon from "@mui/icons-material/Call";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { FavoriteBorder } from "@mui/icons-material";
 
 const CardComponent = ({
   img,
@@ -34,6 +37,7 @@ const CardComponent = ({
   onEdit,
   canEdit,
   canDelete,
+  deleteFav,
 }) => {
   const handleDeleteBtnClick = () => {
     console.log("id", id);
@@ -42,9 +46,16 @@ const CardComponent = ({
   const handleEditBtnClick = () => {
     onEdit(id);
   };
+  // const changeTheme = () => {
+  //   dispatch(darkThemeActions.changeTheme());
+  // };
+  const isDarkTheme = useSelector(
+    (bigPie) => bigPie.darkThemeSlice.isDarkTheme
+  );
   const handleLoveBtnClick = async () => {
     try {
       await axios.patch("/cards/card-like/" + id);
+      deleteFav(id);
     } catch (err) {
       console.log("error when change fav", err.response.data);
     }
@@ -56,9 +67,9 @@ const CardComponent = ({
       </CardActionArea>
       <CardHeader title={title} subheader={subTitle}></CardHeader>
       <CardContent>
-        <Typography>Phone: {phone}</Typography>
-        <Typography>Address: {address}</Typography>
-        <Typography>Card number: {cardNumber}</Typography>
+        <Typography>{"Phone: " + phone}</Typography>
+        <Typography>{"Address: " + address}</Typography>
+        <Typography>{"Card number:" + cardNumber}</Typography>
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-start" }}>
@@ -93,6 +104,7 @@ const CardComponent = ({
           <IconButton color="primary" aria-label="add to shopping cart">
             <CallIcon />
           </IconButton>
+          {/* <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} /> */}
           <IconButton color="primary" aria-label="add to shopping cart">
             <FavoriteIcon onClick={handleLoveBtnClick} />
           </IconButton>

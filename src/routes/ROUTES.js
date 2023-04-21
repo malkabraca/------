@@ -7,6 +7,7 @@ const ROUTES = {
   LOGOUT: "/logout",
   ABOUT:"/about",
   CREATE:"/creat",
+  FAVCARD:"/favCards"
 }
 
 export default ROUTES;

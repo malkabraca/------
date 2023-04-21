@@ -85,6 +85,7 @@ const HomePage = () => {
   if (!cardsArr) {
     return <CircularProgress />;
   }
+  const deleteHome = () => {};
 
   return (
     <Box>
@@ -104,6 +105,7 @@ const HomePage = () => {
               onEdit={handleEditFromInitialCardsArr}
               canEdit={payload && (payload.biz || payload.isAdmin)}
               canDelete={payload && (payload.isAdmin)}
+              deleteFav={deleteHome}
             />
           </Grid>
         ))}

@@ -1,5 +1,5 @@
-import { Box, Grid } from "@mui/material";
-import CardComponent from "../components/CardComponent";
+import jwt_decode from "jwt-decode";
+
 import { Box, CircularProgress, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -10,10 +10,8 @@ import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
-import CreatComponentNew from "../components/CreatComponentNew";
 
-
-const FavCards = () =>{
+const FavCardsPage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
   const [cardsArr, setCardsArr] = useState(null);
   const navigate = useNavigate();
@@ -21,23 +19,37 @@ const FavCards = () =>{
   const payload = useSelector((bigPie) => bigPie.authSlice.payload);
 
   useEffect(() => {
-    /*
-      useEffect cant handle async ()=>{}
-      this is why we use the old promise way
-    */
     axios
       .get("/cards/cards")
       .then(({ data }) => {
-        console.log("data", data);
-        // setCardsArr(data);
-        filterFunc(data);
+        // console.log("data", data);
+        //  console.log("'cardsarr:", cardsArrToFilter);
+        let dataArr = Object.entries(data);
+        // console.log("dataArr before change", dataArr);
+        // console.log("cardsArr after creating dataArr", data);
+        setCardsArr(
+          dataArr.filter((card) =>
+            card[1]["likes"].includes(jwt_decode(localStorage.token)._id)
+          )
+        );
       })
+      // console.log("hi - cards Arr");
+      // console.log("data Arr", dataArr);
+      // console.log("data after filter", data);
+      // console.log("cardes arr - :", cardsArr);
       .catch((err) => {
         console.log("err from axios", err);
 
         toast.error("Oops");
       });
+    console.log("decrypted token -", jwt_decode(localStorage.token));
+    console.log("cards after change", cardsArr);
   }, []);
+
+  const delete1 = (id) => {
+    setCardsArr(cardsArr.filter((card) => card[1]._id !== id));
+  };
+
   const filterFunc = (data) => {
     if (!originalCardsArr && !data) {
       return;
@@ -79,6 +91,7 @@ const FavCards = () =>{
     } catch (err) {
       console.log("error when deleting", err.response.data);
     }
+    // doRefresh();
   };
   const handleEditFromInitialCardsArr = (id) => {
     navigate(`/edit/${id}`); //localhost:3000/edit/123213
@@ -90,29 +103,33 @@ const FavCards = () =>{
 
   return (
     <Box>
+      <h1>fav page</h1>
+      <h3>Here you can fav</h3>
       <Grid container spacing={2}>
         {cardsArr.map((item) => (
-          <Grid item xs={4} key={item._id + Date.now()}>
+          <Grid item xs={4} key={item[1]._id + Date.now()}>
             <CardComponent
-              id={item._id}
-              title={item.title}
-              subTitle={item.subTitle}
-              description={item.description}
-              img={item.image ? item.image.url : ""}
-              phone={item.phone}
-              address={item.state+" "+item.country+" "+item.city+" "+item.street+" "+item.houseNumber}
-              cardNumber={item.bizNumber}
+              id={item[1]._id}
+              phone={item[1].phone}
+              address={
+                item[1].street + " " + item[1].houseNumber + ", " + item[1].city
+              }
+              cardNumber={item[1].bizNumber}
+              title={item[1].title}
+              subTitle={item[1].subTitle}
+              description={item[1].description}
+              img={item[1].image ? item[1].image.url : ""}
+              deleteFav={delete1}
               onDelete={handleDeleteFromInitialCardsArr}
               onEdit={handleEditFromInitialCardsArr}
               canEdit={payload && (payload.biz || payload.isAdmin)}
-              canDelete={payload && (payload.isAdmin)}
             />
           </Grid>
         ))}
       </Grid>
-      <CreatComponentNew canCreate={payload && payload.biz}/>
     </Box>
   );
 };
 
-export  default FavCards;
+
+export default FavCardsPage;

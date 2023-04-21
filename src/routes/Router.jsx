@@ -19,6 +19,7 @@ import { AbcOutlined } from "@mui/icons-material";
 import About from "../pages/About";
 import MyCards from "../pages/MyCards";
 import CreateCardPage from "../pages/CreateCardPage";
+import FavCardsPage from "../pages/FavCards";
 
 //element={<ProtectedRoute element={<LogoutPage />} />}
 
@@ -31,7 +32,8 @@ const Router = () => {
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.ABOUT} element={<About />} />
       <Route path={ROUTES.CREATE} element={<CreateCardPage />} />
-     
+      <Route path={ROUTES.FAVCARD} element={<FavCardsPage />} />
+      <Route path="/myCards" element={<MyCards />} />
       <Route
         path={ROUTES.LOGOUT}
         element={<ProtectedRoute element={<LogoutPage />} />}
@@ -68,9 +70,7 @@ const Router = () => {
         <Route path="nestedpage1" element={<NestedPage1 />} />
         <Route path="nestedpage2" element={<NestedPage2 />} />
       </Route>
-      MyCards
-      <Route path="/myCards" element={<MyCards />} />
-
+      =
       <Route path="*" element={<h1>404</h1>} />
     </Routes>
   );

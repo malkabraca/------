@@ -59,6 +59,11 @@ const authedPages = [
     label: <Avatar src="/broken-image.jpg" />,
     url: ROUTES.PROFILE,
   },
+  {
+    label:"FavCards",
+    url:ROUTES.FAVCARD,
+  },
+
 ];
 
 //biz pages
