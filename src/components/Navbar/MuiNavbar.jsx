@@ -14,6 +14,8 @@ import AdbIcon from "@mui/icons-material/Adb";
 import Link from "@mui/icons-material/Link";
 import { Avatar, Switch } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 import SearchPartial from "./SearchPartial";
 import ROUTES from "../../routes/ROUTES";
@@ -47,10 +49,10 @@ const notAuthPages = [
 
 //logged in users
 const authedPages = [
-  {
-    label: "creat",
-    url: "/creat",
-  },
+  // {
+  //   label: "creat",
+  //   url: "/creat",
+  // },
   {
     label: "Logout",
     url: ROUTES.LOGOUT,
@@ -68,10 +70,10 @@ const authedPages = [
 
 //biz pages
 const bizPages = [
-  {
-    label: "Create",
-    url: ROUTES.REGISTER,
-  },
+  // {
+  //   label: "Create",
+  //   url: ROUTES.REGISTER,
+  // },
   {
     label: "MyCards",
     url: "/myCards",
@@ -89,6 +91,8 @@ const MuiNavbar = () => {
   const isLoggedIn = useSelector(
     (bigPieBigState) => bigPieBigState.authSlice.isLoggedIn
   );
+  const payload = useSelector((bigPie) => bigPie.authSlice.payload);
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const dispatch = useDispatch();
   const isDarkTheme = useSelector(
@@ -136,7 +140,22 @@ const MuiNavbar = () => {
               : notAuthPages.map((page) => (
                   <NavLinkComponent key={page.url} {...page} />
                 ))}
-                
+             {isLoggedIn&& payload.biz
+             ?bizPages.map((page) =>
+                <NavLinkComponent
+                  key={page.url}
+                  {...page}
+                  onClick={logoutClick}
+                />
+              ):("")}
+                {isLoggedIn&& payload.isAdmin
+             ?adminPages.map((page) =>
+                <NavLinkComponent
+                  key={page.url}
+                  {...page}
+                  onClick={logoutClick}
+                />
+              ):("")}
           </Box>
           <SearchPartial />
           <Box
@@ -148,7 +167,10 @@ const MuiNavbar = () => {
             <Typography sx={{ display: { xs: "none", md: "inline" } }}>
               {isDarkTheme ? "Dark" : "Light"} Mode
             </Typography>
-            <Switch checked={isDarkTheme} onChange={changeTheme} />
+            {/* <Switch checked={isDarkTheme} onChange={changeTheme} /> */}
+            <IconButton onClick={changeTheme}>
+              {isDarkTheme?<WbSunnyIcon />:<DarkModeIcon />}
+            </IconButton>
           </Box>
           {/* hamburger with menu */}
           <Box

@@ -122,7 +122,18 @@ const FavCardsPage = () => {
               deleteFav={delete1}
               onDelete={handleDeleteFromInitialCardsArr}
               onEdit={handleEditFromInitialCardsArr}
-              canEdit={payload && (payload.biz || payload.isAdmin)}
+              // canEdit={payload && (payload.biz || payload.isAdmin)}
+              canEdit={
+                payload &&
+                (payload.biz || payload.isAdmin) &&
+                item[1].user_id == (jwt_decode(localStorage.token)._id)
+              }
+              // canDelete={payload && (payload.isAdmin)}
+              canDelete={
+                payload && payload.isAdmin||
+                (payload.biz  &&
+                item[1].user_id == jwt_decode(localStorage.token)._id)
+              }
             />
           </Grid>
         ))}

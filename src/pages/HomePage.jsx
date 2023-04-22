@@ -2,6 +2,7 @@ import { Box, CircularProgress, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 import CardComponent from "../components/CardComponent";
 import ButtonComponent from "../components/ButtonComponent";
@@ -103,8 +104,18 @@ const HomePage = () => {
               cardNumber={item.bizNumber}
               onDelete={handleDeleteFromInitialCardsArr}
               onEdit={handleEditFromInitialCardsArr}
-              canEdit={payload && (payload.biz || payload.isAdmin)}
-              canDelete={payload && (payload.isAdmin)}
+              // canEdit={payload && (payload.biz || payload.isAdmin)}
+              canEdit={
+                payload &&
+                (payload.biz || payload.isAdmin) &&
+                item.user_id == (jwt_decode(localStorage.token)._id)
+              }
+              // canDelete={payload && (payload.isAdmin)}
+              canDelete={
+                payload && payload.isAdmin||
+                (payload.biz  &&
+                item.user_id == jwt_decode(localStorage.token)._id)
+              }
               deleteFav={deleteHome}
             />
           </Grid>
