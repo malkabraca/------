@@ -27,7 +27,7 @@ const HomePage = () => {
     axios
       .get("/cards/cards")
       .then(({ data }) => {
-        console.log("data", data);
+        // console.log("data", data);
         // setCardsArr(data);
         filterFunc(data);
       })
@@ -108,13 +108,13 @@ const HomePage = () => {
               canEdit={
                 payload &&
                 (payload.biz || payload.isAdmin) &&
-                item.user_id == (jwt_decode(localStorage.token)._id)
+                item.user_id == jwt_decode(localStorage.token)._id
               }
               // canDelete={payload && (payload.isAdmin)}
               canDelete={
-                payload && payload.isAdmin||
-                (payload.biz  &&
-                item.user_id == jwt_decode(localStorage.token)._id)
+                payload &&
+                (payload.isAdmin || payload.biz) &&
+                item.user_id == jwt_decode(localStorage.token)._id
               }
               deleteFav={deleteHome}
             />

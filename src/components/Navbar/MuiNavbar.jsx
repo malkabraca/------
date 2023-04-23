@@ -121,7 +121,7 @@ const MuiNavbar = () => {
       <Container maxWidth="xl">
         <Toolbar>
           {/* main navbar */}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex"} }}>
             {pages.map((page) => (
               <NavLinkComponent key={page.url} {...page} />
             ))}
@@ -132,6 +132,7 @@ const MuiNavbar = () => {
                       key={page.url}
                       {...page}
                       onClick={logoutClick}
+                      // sx={{ display: "flex", justifyContent: "flex-end" }}
                     />
                   ) : (
                     <NavLinkComponent key={page.url} {...page} />
@@ -145,7 +146,6 @@ const MuiNavbar = () => {
                 <NavLinkComponent
                   key={page.url}
                   {...page}
-                  onClick={logoutClick}
                 />
               ):("")}
                 {isLoggedIn&& payload.isAdmin
@@ -153,7 +153,6 @@ const MuiNavbar = () => {
                 <NavLinkComponent
                   key={page.url}
                   {...page}
-                  onClick={logoutClick}
                 />
               ):("")}
           </Box>
