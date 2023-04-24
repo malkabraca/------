@@ -25,12 +25,14 @@ const RP1 = () => {
 
   return (
     <Fragment>
+      <br></br>
       <button onClick={handleAdd1}>+1</button>
       <button onClick={handleSub1}>-1</button>
       <input type="text" value={txt} onChange={handleInputChange} />
       <button onClick={handleAddClick}>add</button>
       <Link to="/rp2">to rp2</Link>
     </Fragment>
+    
   );
 };
 

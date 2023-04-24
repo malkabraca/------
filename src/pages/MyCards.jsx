@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Grid } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
@@ -8,6 +8,7 @@ import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
+import CreatComponentNew from "../components/CreatComponentNew";
 
 
 const MyCards =()=>{
@@ -87,6 +88,13 @@ const MyCards =()=>{
   
     return (
       <Box>
+        {cardsArr.length === 0 ? (
+        <Box>
+        <Typography>You didn't created cards</Typography>
+        <CreatComponentNew canCreate={payload && payload.biz}/>
+        </Box>
+      ) :(
+      <Box>
         <Grid container spacing={2}>
           {cardsArr.map((item) => (
             <Grid item xs={4} key={item._id + Date.now()}>
@@ -103,8 +111,11 @@ const MyCards =()=>{
               />
             </Grid>
           ))}
+          <CreatComponentNew canCreate={payload && payload.biz}/>
         </Grid>
-      </Box>
+        </Box>
+    )}
+    </Box>
     );
   };
 export default MyCards

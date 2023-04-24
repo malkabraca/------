@@ -30,9 +30,9 @@ const LoginPage = () => {
       password: "",
     });
   };
+  let joiResponse = validateLoginSchema(inputState);
   const handleBtnClick = async (ev) => {
     try {
-      const joiResponse = validateLoginSchema(inputState);
       setInputsErrorsState(joiResponse);
       if (joiResponse) {
         return;
@@ -139,6 +139,7 @@ const LoginPage = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            {...(!joiResponse ? { disabled: false } : { disabled: true })}
             onClick={handleBtnClick}
           >
             Sign In

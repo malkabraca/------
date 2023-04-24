@@ -83,7 +83,7 @@ const bizPages = [
 const adminPages = [
   {
     label: "SANDBOX",
-    url: ROUTES.HOME,
+    url: "/sandBox",
   },
 ];
 
