@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -33,13 +33,19 @@ const CreateCardPage = () => {
     houseNumber: "",
     zipCode: "",
   });
-  let joiResponse = validateCreateSchema(inputState);
+  // let joiResponse = validateCreateSchema(inputState);
+  useEffect(() => {
+    const joiResponse = validateCreateSchema(inputState);
+    setInputsErrorsState(joiResponse);
+  },[])
   
   const [inputsErrorsState, setInputsErrorsState] = useState(null);
   const navigate = useNavigate();
+  
   const handleSaveBtnClick = async (ev) => {
     try {
       const joiResponse = validateCreateSchema(inputState);
+      console.log(joiResponse);
       setInputsErrorsState(joiResponse);
       console.log(joiResponse);
       if (!joiResponse) {
@@ -62,6 +68,8 @@ const CreateCardPage = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
+    const joiResponse = validateCreateSchema(newInputState);
+    setInputsErrorsState(joiResponse);
   };
   const resetForm = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
@@ -85,7 +93,7 @@ const CreateCardPage = () => {
 
     setInputState(newInputState);
 
-    joiResponse = validateCreateSchema(inputState);
+    let joiResponse = validateCreateSchema(inputState);
     if (!joiResponse) {
       return;
     }
@@ -393,7 +401,9 @@ const CreateCardPage = () => {
                 variant="contained"
                 sx={{ mt: 1, mb: 1 }}
                 // {...(!joiResponse ? { disabled: false } : { disabled: true })}
-                onClick={handleSaveBtnClick}
+                 onClick={handleSaveBtnClick}
+                 disabled= {inputsErrorsState !==null}
+
               >
                 Save
               </Button>
@@ -403,7 +413,7 @@ const CreateCardPage = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 1, mb: 1 }}
-                onClick={handleCancelBtnClick}
+                 onChange={handleCancelBtnClick}
               >
                 Cancel
               </Button>
@@ -415,7 +425,7 @@ const CreateCardPage = () => {
                 variant="contained"
                 sx={{ mt: 1, mb: 1 }}
                 //href={ROUTES.REGISTER}
-                onClick={resetForm}
+                 onChange={resetForm}
                 endIcon={<CachedIcon />}
               ></Button>
             </Grid>
