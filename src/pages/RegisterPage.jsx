@@ -17,6 +17,7 @@ import ROUTES from "../routes/ROUTES";
 import axios from "axios";
 import { toast } from "react-toastify";
 import CachedIcon from "@mui/icons-material/Cached";
+import { useEffect } from "react";
 const RegisterPage = () => {
   const [inputState, setInputState] = useState({
     firstName: "",
@@ -35,14 +36,20 @@ const RegisterPage = () => {
     zipCode: "",
     biz: false,
   });
-  let joiResponse = validateRegisterSchema(inputState);
+  // let joiResponse = validateRegisterSchema(inputState);
+  useEffect(() => {
+    const joiResponse = validateRegisterSchema(inputState);
+    setinputsErrorState(joiResponse);
+  },[])
 
   const [inputsErrorState, setinputsErrorState] = useState(null);
   const navigate = useNavigate();
   const handeleBtnClick = async (ev) => {
     try {
-      joiResponse = validateRegisterSchema(inputState);
-
+      const joiResponse = validateRegisterSchema(inputState);
+      console.log(joiResponse);
+      setinputsErrorState(joiResponse);
+      console.log(joiResponse);
       if (joiResponse) {
         return;
       }
@@ -73,7 +80,7 @@ const RegisterPage = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
-    joiResponse = validateRegisterSchema(inputState);
+    const joiResponse = validateRegisterSchema(newInputState);
     setinputsErrorState(joiResponse);
 
     // activateButton = true;
@@ -108,7 +115,7 @@ const RegisterPage = () => {
 
     setInputState(newInputState);
 
-    joiResponse = validateRegisterSchema(inputState);
+    const joiResponse = validateRegisterSchema(inputState);
     if (!joiResponse) {
       return;
     }
@@ -442,8 +449,8 @@ const RegisterPage = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 1, mb: 1 }}
-                {...(!joiResponse ? { disabled: false } : { disabled: true })}
                 onClick={handeleBtnClick}
+                disabled= {inputsErrorState !==null}
               >
                 Sign Up
               </Button>

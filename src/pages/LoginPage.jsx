@@ -15,25 +15,37 @@ import ROUTES from "../routes/ROUTES";
 import validateLoginSchema from "../validation/loginValidation";
 import useLoggedIn from "../hooks/useLoggedIn";
 import { Checkbox, FormControlLabel } from "@mui/material";
+import { useEffect } from "react";
 
 const LoginPage = () => {
   const [inputState, setInputState] = useState({
     email: "",
     password: "",
   });
-  const [inputsErrorsState, setInputsErrorsState] = useState(null);
+  useEffect(() => {
+    const joiResponse = validateLoginSchema(inputState);
+    setinputsErrorState(joiResponse);
+  },[])
+
+  const [inputsErrorState, setinputsErrorState] = useState(null);
   const loggedIn = useLoggedIn();
   const navigate = useNavigate();
+
   const handleBtnClicRefreshment = () => {
     setInputState({
       email: "",
       password: "",
     });
   };
-  let joiResponse = validateLoginSchema(inputState);
+
+  // let joiResponse = validateLoginSchema(inputState);
   const handleBtnClick = async (ev) => {
     try {
-      setInputsErrorsState(joiResponse);
+      const joiResponse = validateLoginSchema(inputState);
+      console.log(joiResponse);
+      setinputsErrorState(joiResponse);
+      console.log(joiResponse);
+      setinputsErrorState(joiResponse);
       if (joiResponse) {
         return;
       }
@@ -50,6 +62,8 @@ const LoginPage = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
+    const joiResponse = validateLoginSchema(newInputState);
+    setinputsErrorState(joiResponse);
   };
   return (
     <Container component="main" maxWidth="xs">
@@ -80,9 +94,9 @@ const LoginPage = () => {
                 value={inputState.email}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState && inputsErrorsState.email && (
+              {inputsErrorState && inputsErrorState.email && (
                 <Alert severity="warning">
-                  {inputsErrorsState.email.map((item) => (
+                  {inputsErrorState.email.map((item) => (
                     <div key={"email-errors" + item}>{item}</div>
                   ))}
                 </Alert>
@@ -100,9 +114,9 @@ const LoginPage = () => {
                 value={inputState.password}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState && inputsErrorsState.password && (
+              {inputsErrorState && inputsErrorState.password && (
                 <Alert severity="warning">
-                  {inputsErrorsState.password.map((item) => (
+                  {inputsErrorState.password.map((item) => (
                     <div key={"password-errors" + item}>{item}</div>
                   ))}
                 </Alert>
@@ -139,8 +153,8 @@ const LoginPage = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            {...(!joiResponse ? { disabled: false } : { disabled: true })}
             onClick={handleBtnClick}
+            disabled= {inputsErrorState !==null}
           >
             Sign In
           </Button>
