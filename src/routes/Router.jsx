@@ -20,6 +20,9 @@ import About from "../pages/About";
 import MyCards from "../pages/MyCards";
 import CreateCardPage from "../pages/CreateCardPage";
 import FavCardsPage from "../pages/FavCards";
+import InformationCard from "../pages/InformationCard";
+
+
 
 //element={<ProtectedRoute element={<LogoutPage />} />}
 
@@ -34,6 +37,7 @@ const Router = () => {
       <Route path={ROUTES.CREATE} element={<CreateCardPage />} />
       <Route path={ROUTES.FAVCARD} element={<FavCardsPage />} />
       <Route path="/myCards" element={<MyCards />} />
+      <Route path="infor/:id" element={<InformationCard />} />
       <Route
         path={ROUTES.LOGOUT}
         element={<ProtectedRoute element={<LogoutPage />} />}

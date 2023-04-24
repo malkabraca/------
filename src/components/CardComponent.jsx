@@ -35,6 +35,7 @@ const CardComponent = ({
   cardNumber,
   onDelete,
   onEdit,
+  onInfor,
   canEdit,
   canDelete,
   deleteFav,
@@ -45,6 +46,10 @@ const CardComponent = ({
   };
   const handleEditBtnClick = () => {
     onEdit(id);
+  };
+  const handleonInforBtnClick = () => {
+    console.log("loggg");
+    onInfor(id);
   };
   // const changeTheme = () => {
   //   dispatch(darkThemeActions.changeTheme());
@@ -63,7 +68,7 @@ const CardComponent = ({
   return (
     <Card square raised>
       <CardActionArea>
-        <CardMedia component="img" image={img} />
+        <CardMedia component="img" image={img} onClick={handleonInforBtnClick} />
       </CardActionArea>
       <CardHeader title={title} subheader={subTitle}></CardHeader>
       <CardContent>

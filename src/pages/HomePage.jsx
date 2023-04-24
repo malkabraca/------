@@ -82,7 +82,10 @@ const HomePage = () => {
   const handleEditFromInitialCardsArr = (id) => {
     navigate(`/edit/${id}`); //localhost:3000/edit/123213
   };
-
+  const handleMoreInformationFromInitialCardsArr = (id) => {
+     console.log("malki");
+    navigate(`/infor/${id}`); //localhost:3000/edit/123213
+  };
   if (!cardsArr) {
     return <CircularProgress />;
   }
@@ -104,6 +107,7 @@ const HomePage = () => {
               cardNumber={item.bizNumber}
               onDelete={handleDeleteFromInitialCardsArr}
               onEdit={handleEditFromInitialCardsArr}
+              onInfor={handleMoreInformationFromInitialCardsArr}
               // canEdit={payload && (payload.biz || payload.isAdmin)}
               canEdit={
                 payload &&
