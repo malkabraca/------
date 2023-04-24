@@ -57,6 +57,7 @@ const CardComponent = ({
   const isDarkTheme = useSelector(
     (bigPie) => bigPie.darkThemeSlice.isDarkTheme
   );
+  
   const handleLoveBtnClick = async () => {
     try {
       await axios.patch("/cards/card-like/" + id);
@@ -67,8 +68,8 @@ const CardComponent = ({
   };
   return (
     <Card square raised>
-      <CardActionArea>
-        <CardMedia component="img" image={img} onClick={handleonInforBtnClick} />
+      <CardActionArea onClick={handleonInforBtnClick} >
+        <CardMedia component="img" image={img} />
       </CardActionArea>
       <CardHeader title={title} subheader={subTitle}></CardHeader>
       <CardContent>
@@ -77,6 +78,34 @@ const CardComponent = ({
         <Typography>{"Card number:" + cardNumber}</Typography>
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
+        {/* <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-start" }}>
+          {canDelete ? (
+            <Fragment>
+              <IconButton
+                color="primary"
+                aria-label="add to shopping cart"
+                onClick={handleDeleteBtnClick}
+              >
+                <DeleteOutlineIcon />
+              </IconButton>
+            </Fragment>
+          ) : (
+            ""
+          )}
+          {canEdit ? (
+            <Fragment>
+              <IconButton
+                color="primary"
+                aria-label="add to shopping cart"
+                onClick={handleEditBtnClick}
+              >
+                <CreateIcon />
+              </IconButton>
+            </Fragment>
+          ) : (
+            ""
+          )}
+        </Box> */}
         <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-start" }}>
           {canDelete ? (
             <Fragment>
@@ -105,13 +134,15 @@ const CardComponent = ({
             ""
           )}
         </Box>
+        
+        
         <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
           <IconButton color="primary" aria-label="add to shopping cart">
             <CallIcon />
           </IconButton>
           {/* <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} /> */}
-          <IconButton color="primary" aria-label="add to shopping cart">
-            <FavoriteIcon onClick={handleLoveBtnClick} />
+          <IconButton color="primary" aria-label="add to shopping cart" onClick={handleLoveBtnClick}>
+            <FavoriteIcon  />
           </IconButton>
         </Box>
       </CardActions>

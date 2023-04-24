@@ -392,6 +392,7 @@ const CreateCardPage = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 1, mb: 1 }}
+                // {...(!joiResponse ? { disabled: false } : { disabled: true })}
                 onClick={handleSaveBtnClick}
               >
                 Save

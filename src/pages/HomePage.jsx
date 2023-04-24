@@ -117,8 +117,8 @@ const HomePage = () => {
               // canDelete={payload && (payload.isAdmin)}
               canDelete={
                 payload &&
-                (payload.isAdmin || payload.biz) &&
-                item.user_id == jwt_decode(localStorage.token)._id
+                ((payload.isAdmin || (payload.biz &&
+                item.user_id == jwt_decode(localStorage.token)._id)))
               }
               deleteFav={deleteHome}
             />
