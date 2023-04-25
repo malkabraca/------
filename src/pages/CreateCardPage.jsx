@@ -161,10 +161,10 @@ const CreateCardPage = () => {
                 value={inputState.alt}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState && inputsErrorsState.description && (
+              {inputsErrorsState && inputsErrorsState.alt && (
                 <Alert severity="warning">
-                  {inputsErrorsState.description.map((item) => (
-                    <div key={"description-errors" + item}>{item}</div>
+                  {inputsErrorsState.alt.map((item) => (
+                    <div key={"alt-errors" + item}>{item}</div>
                   ))}
                 </Alert>
               )}
@@ -238,10 +238,10 @@ const CreateCardPage = () => {
                 value={inputState.phone}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState && inputsErrorsState.description && (
+              {inputsErrorsState && inputsErrorsState.phone && (
                 <Alert severity="warning">
-                  {inputsErrorsState.description.map((item) => (
-                    <div key={"description-errors" + item}>{item}</div>
+                  {inputsErrorsState.phone.map((item) => (
+                    <div key={"phone-errors" + item}>{item}</div>
                   ))}
                 </Alert>
               )}
@@ -408,7 +408,7 @@ const CreateCardPage = () => {
                 Save
               </Button>
             </Grid>
-            <Grid item xs={6} sm={6}>
+            <Grid item xs={12} sm={6}>
               <Button
                 fullWidth
                 variant="contained"

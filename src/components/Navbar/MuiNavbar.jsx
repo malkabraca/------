@@ -67,6 +67,12 @@ const authedPages = [
   },
 
 ];
+const authedPagesAvatar = [
+  {
+    label: <Avatar src="/broken-image.jpg" />,
+    url: ROUTES.PROFILE,
+  },
+];
 
 //biz pages
 const bizPages = [
