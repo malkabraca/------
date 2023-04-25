@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button"
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -8,39 +7,14 @@ import Container from "@mui/material/Container";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import ROUTES from "../routes/ROUTES";
-import validateEditSchema, {
-  validateEditCardParamsSchema,
-} from "../validation/editValidation";
 import { CircularProgress, CssBaseline } from "@mui/material";
 import atom from "../logo.svg";
 import { toast } from "react-toastify";
 
 const InformationCard = () => {
   const { id } = useParams();
-  /*
-    router: /edit/:id
-    url: /edit/magafaiim
-    params = {
-      id: "magafaiim"
-    }
-    const params = useParams()
-    const id = params.id
-  */
   const [inputState, setInputState] = useState(null);
-  // const [inputState, setInputState] = useState({
-  //   img: "",
-  //   title: "",
-  //   price: "",
-  //   description: "",
-  // });
   const navigate = useNavigate();
-  /*
-    const params = useParams();
-    params = {
-      id:1
-    }
-    const id = params.id
-  */
     useEffect(() => {
       (async () => {
         const { data } = await axios.get("/cards/card/" + id);
@@ -75,7 +49,6 @@ const InformationCard = () => {
     }
 
   const handleCancelBtnClick = (ev) => {
-    //move to homepage
     navigate(ROUTES.HOME);
   };
 
