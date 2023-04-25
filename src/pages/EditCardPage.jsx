@@ -18,6 +18,7 @@ import validateEditSchema, {
 import { CircularProgress } from "@mui/material";
 import atom from "../logo.svg";
 import { toast } from "react-toastify";
+import CreateEditComponent from "../components/CreateAndEditComponent";
 
 const EditCardPage = () => {
   const { id } = useParams();
@@ -112,7 +113,7 @@ const EditCardPage = () => {
   if (!inputState) {
     return <CircularProgress />;
   }
-
+  const keys = Object.keys(inputState);
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -140,7 +141,48 @@ const EditCardPage = () => {
           alt={inputState.alt ? inputState.alt : ""}
           src={inputState.url ? inputState.url : atom}
         />
-        <Box component="div" noValidate sx={{ mt: 3 }}>
+      <Box component="div" noValidate sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            {keys.map((item) => (
+              <CreateEditComponent
+                key={item}
+                item={item}
+                inputState={inputState}
+                handleInputChange={handleInputChange}
+                inputsErrorsState={inputsErrorsState}
+              />
+            ))}
+            <Grid item xs={6}>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={handleSaveBtnClick}
+              >
+                Save
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={handleCancelBtnClick}
+              >
+                Cancel
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Container>
+  );
+};
+export default EditCardPage;
+
+
+
+  {/* <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
               <TextField
@@ -403,31 +445,4 @@ const EditCardPage = () => {
                   ))}
                 </Alert>
               )}
-            </Grid>
-            <Grid item xs={6}>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                onClick={handleSaveBtnClick}
-              >
-                Save
-              </Button>
-            </Grid>
-            <Grid item xs={6}>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                onClick={handleCancelBtnClick}
-              >
-                Cancel
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </Box>
-    </Container>
-  );
-};
-export default EditCardPage;
+            </Grid> */}

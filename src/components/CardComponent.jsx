@@ -67,86 +67,132 @@ const CardComponent = ({
     }
   };
   return (
-    <Card square raised>
-      <CardActionArea onClick={handleonInforBtnClick} >
-        <CardMedia component="img" image={img} />
-      </CardActionArea>
-      <CardHeader title={title} subheader={subTitle}></CardHeader>
-      <CardContent>
-        <Typography>{"Phone: " + phone}</Typography>
-        <Typography>{"Address: " + address}</Typography>
-        <Typography>{"Card number:" + cardNumber}</Typography>
-      </CardContent>
-      <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
-        {/* <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-start" }}>
-          {canDelete ? (
-            <Fragment>
-              <IconButton
-                color="primary"
-                aria-label="add to shopping cart"
-                onClick={handleDeleteBtnClick}
-              >
-                <DeleteOutlineIcon />
-              </IconButton>
-            </Fragment>
-          ) : (
-            ""
-          )}
-          {canEdit ? (
-            <Fragment>
-              <IconButton
-                color="primary"
-                aria-label="add to shopping cart"
-                onClick={handleEditBtnClick}
-              >
-                <CreateIcon />
-              </IconButton>
-            </Fragment>
-          ) : (
-            ""
-          )}
-        </Box> */}
-        <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-start" }}>
-          {canDelete ? (
-            <Fragment>
-              <IconButton
-                color="primary"
-                aria-label="add to shopping cart"
-                onClick={handleDeleteBtnClick}
-              >
-                <DeleteOutlineIcon />
-              </IconButton>
-            </Fragment>
-          ) : (
-            ""
-          )}
-          {canEdit ? (
-            <Fragment>
-              <IconButton
-                color="primary"
-                aria-label="add to shopping cart"
-                onClick={handleEditBtnClick}
-              >
-                <CreateIcon />
-              </IconButton>
-            </Fragment>
-          ) : (
-            ""
-          )}
-        </Box>
+//     <Card square raised>
+//       <CardActionArea onClick={handleonInforBtnClick} >
+//         <CardMedia component="img" image={img} />
+//       </CardActionArea>
+//       <CardHeader title={title} subheader={subTitle}></CardHeader>
+//       <CardContent>
+//         <Typography>{"Phone: " + phone}</Typography>
+//         <Typography>{"Address: " + address}</Typography>
+//         <Typography>{"Card number:" + cardNumber}</Typography>
+//       </CardContent>
+//       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
+//         <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-start" }}>
+//           {canDelete ? (
+//             <Fragment>
+//               <IconButton
+//                 color="primary"
+//                 aria-label="add to shopping cart"
+//                 onClick={handleDeleteBtnClick}
+//               >
+//                 <DeleteOutlineIcon />
+//               </IconButton>
+//             </Fragment>
+//           ) : (
+//             ""
+//           )}
+//           {canEdit ? (
+//             <Fragment>
+//               <IconButton
+//                 color="primary"
+//                 aria-label="add to shopping cart"
+//                 onClick={handleEditBtnClick}
+//               >
+//                 <CreateIcon />
+//               </IconButton>
+//             </Fragment>
+//           ) : (
+//             ""
+//           )}
+//         </Box>
         
         
-        <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-          <IconButton color="primary" aria-label="add to shopping cart">
-            <CallIcon />
+//         <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
+//           <IconButton color="primary" aria-label="add to shopping cart">
+//             <CallIcon />
+//           </IconButton>
+//           {/* <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} /> */}
+//           <IconButton color="primary" aria-label="add to shopping cart" onClick={handleLoveBtnClick}>
+//             <FavoriteIcon  />
+//           </IconButton>
+//         </Box>
+//       </CardActions>
+//     </Card>
+<Card sx={{ maxWidth: 345, margin: "auto", mb: 4 }}>
+  <CardActionArea onClick={handleonInforBtnClick}>
+    <CardMedia component="img" image={img} />
+  </CardActionArea>
+  <CardHeader title={title} subheader={subTitle}></CardHeader>
+  <CardContent>
+    <Typography>{"Phone: " + phone}</Typography>
+    <Typography>{"Address: " + address}</Typography>
+    <Typography>{"Card number:" + cardNumber}</Typography>
+  </CardContent>
+  <CardActions
+    sx={{
+      display: "flex",
+      justifyContent: "space-between",
+      flexDirection: { xs: "column", sm: "row" },
+    }}
+  >
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: { xs: "flex-start", sm: "center" },
+        flex: { xs: 1, sm: "unset" },
+      }}
+    >
+      {canDelete && (
+        <Fragment>
+          <IconButton
+            color="primary"
+            aria-label="add to shopping cart"
+            onClick={handleDeleteBtnClick}
+            sx={{ mr: { xs: 1, sm: 2 } }}
+          >
+            <DeleteOutlineIcon />
           </IconButton>
-          {/* <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} /> */}
-          <IconButton color="primary" aria-label="add to shopping cart" onClick={handleLoveBtnClick}>
-            <FavoriteIcon  />
+        </Fragment>
+      )}
+      {canEdit && (
+        <Fragment>
+          <IconButton
+            color="primary"
+            aria-label="add to shopping cart"
+            onClick={handleEditBtnClick}
+            sx={{ mr: { xs: 1, sm: 2 } }}
+          >
+            <CreateIcon />
           </IconButton>
-        </Box>
-      </CardActions>
-    </Card>
+        </Fragment>
+      )}
+    </Box>
+
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "flex-end",
+        alignItems: { xs: "flex-end", sm: "center" },
+        flex: { xs: 1, sm: "unset" },
+      }}
+    >
+      <IconButton color="primary" aria-label="add to shopping cart" sx={{ mr: { xs: 1, sm: 2 } }}>
+        <CallIcon />
+      </IconButton>
+      <IconButton
+        color="primary"
+        aria-label="add to shopping cart"
+        onClick={handleLoveBtnClick}
+        sx={{ mr: { xs: 1, sm: 2 } }}
+      >
+        <FavoriteIcon />
+      </IconButton>
+    </Box>
+  </CardActions>
+</Card>
+
   );
 };
 

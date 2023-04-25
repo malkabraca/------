@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Link from "@mui/icons-material/Link";
-import { Avatar, Switch } from "@mui/material";
+import { Avatar, Grid, Switch } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -57,15 +57,14 @@ const authedPages = [
     label: "Logout",
     url: ROUTES.LOGOUT,
   },
+  // {
+  //   label: <Avatar src="/broken-image.jpg" />,
+  //   url: ROUTES.PROFILE,
+  // },
   {
-    label: <Avatar src="/broken-image.jpg" />,
-    url: ROUTES.PROFILE,
+    label: "FavCards",
+    url: ROUTES.FAVCARD,
   },
-  {
-    label:"FavCards",
-    url:ROUTES.FAVCARD,
-  },
-
 ];
 const authedPagesAvatar = [
   {
@@ -127,7 +126,7 @@ const MuiNavbar = () => {
       <Container maxWidth="xl">
         <Toolbar>
           {/* main navbar */}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex"} }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <NavLinkComponent key={page.url} {...page} />
             ))}
@@ -147,20 +146,16 @@ const MuiNavbar = () => {
               : notAuthPages.map((page) => (
                   <NavLinkComponent key={page.url} {...page} />
                 ))}
-             {isLoggedIn&& payload.biz
-             ?bizPages.map((page) =>
-                <NavLinkComponent
-                  key={page.url}
-                  {...page}
-                />
-              ):("")}
-                {isLoggedIn&& payload.isAdmin
-             ?adminPages.map((page) =>
-                <NavLinkComponent
-                  key={page.url}
-                  {...page}
-                />
-              ):("")}
+            {isLoggedIn && payload.biz
+              ? bizPages.map((page) => (
+                  <NavLinkComponent key={page.url} {...page} />
+                ))
+              : ""}
+            {isLoggedIn && payload.isAdmin
+              ? adminPages.map((page) => (
+                  <NavLinkComponent key={page.url} {...page} />
+                ))
+              : ""}
           </Box>
           <SearchPartial />
           <Box
@@ -169,13 +164,24 @@ const MuiNavbar = () => {
               p: 1,
             }}
           >
+            <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+            {isLoggedIn
+              ? authedPagesAvatar.map((page) => (
+                  <NavLinkComponent key={page.url} {...page} />
+                ))
+              : ""}
+              </Grid>
+              <Grid item xs={12} sm={6}>
             <Typography sx={{ display: { xs: "none", md: "inline" } }}>
               {isDarkTheme ? "Dark" : "Light"} Mode
             </Typography>
             {/* <Switch checked={isDarkTheme} onChange={changeTheme} /> */}
             <IconButton onClick={changeTheme}>
-              {isDarkTheme?<WbSunnyIcon />:<DarkModeIcon />}
+              {isDarkTheme ? <WbSunnyIcon /> : <DarkModeIcon />}
             </IconButton>
+            </Grid>
+            </Grid>
           </Box>
           {/* hamburger with menu */}
           <Box

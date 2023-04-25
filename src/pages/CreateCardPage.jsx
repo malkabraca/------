@@ -15,6 +15,7 @@ import ROUTES from "../routes/ROUTES";
 import validateCreateSchema from "../validation/createValidation";
 import atom from "../logo.svg";
 import { toast } from "react-toastify";
+import CreateEditComponent from "../components/CreateAndEditComponent";
 
 const CreateCardPage = () => {
   const [inputState, setInputState] = useState({
@@ -37,11 +38,11 @@ const CreateCardPage = () => {
   useEffect(() => {
     const joiResponse = validateCreateSchema(inputState);
     setInputsErrorsState(joiResponse);
-  },[])
-  
+  }, []);
+
   const [inputsErrorsState, setInputsErrorsState] = useState(null);
   const navigate = useNavigate();
-  
+
   const handleSaveBtnClick = async (ev) => {
     try {
       const joiResponse = validateCreateSchema(inputState);
@@ -104,6 +105,7 @@ const CreateCardPage = () => {
     });
     inputsErrorsState(newjoiResponse);
   };
+  const keys = Object.keys(inputState);
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -132,6 +134,18 @@ const CreateCardPage = () => {
           src={inputState.url ? inputState.url : atom}
         />
         <Box component="div" noValidate sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            {keys.map((item) => (
+              <CreateEditComponent
+                key={item}
+                item={item}
+                inputState={inputState}
+                handleInputChange={handleInputChange}
+                inputsErrorsState={inputsErrorsState}
+              />
+            ))}
+
+            {/* <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -394,16 +408,15 @@ const CreateCardPage = () => {
                   ))}
                 </Alert>
               )}
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <Button
                 fullWidth
                 variant="contained"
                 sx={{ mt: 1, mb: 1 }}
                 // {...(!joiResponse ? { disabled: false } : { disabled: true })}
-                 onClick={handleSaveBtnClick}
-                 disabled= {inputsErrorsState !==null}
-
+                onClick={handleSaveBtnClick}
+                disabled={inputsErrorsState !== null}
               >
                 Save
               </Button>
@@ -413,7 +426,7 @@ const CreateCardPage = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 1, mb: 1 }}
-                 onChange={handleCancelBtnClick}
+                onChange={handleCancelBtnClick}
               >
                 Cancel
               </Button>
@@ -425,7 +438,7 @@ const CreateCardPage = () => {
                 variant="contained"
                 sx={{ mt: 1, mb: 1 }}
                 //href={ROUTES.REGISTER}
-                 onChange={resetForm}
+                onChange={resetForm}
                 endIcon={<CachedIcon />}
               ></Button>
             </Grid>
