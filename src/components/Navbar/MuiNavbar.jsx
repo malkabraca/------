@@ -53,10 +53,10 @@ const authedPages = [
   //   label: "creat",
   //   url: "/creat",
   // },
-  {
-    label: "Logout",
-    url: ROUTES.LOGOUT,
-  },
+  // {
+  //   label: "Logout",
+  //   url: ROUTES.LOGOUT,
+  // },
   // {
   //   label: <Avatar src="/broken-image.jpg" />,
   //   url: ROUTES.PROFILE,
@@ -70,6 +70,10 @@ const authedPagesAvatar = [
   {
     label: <Avatar src="/broken-image.jpg" />,
     url: ROUTES.PROFILE,
+  },
+  {
+    label: "Logout",
+    url: ROUTES.LOGOUT,
   },
 ];
 
@@ -164,15 +168,6 @@ const MuiNavbar = () => {
               p: 1,
             }}
           >
-            <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
-            {isLoggedIn
-              ? authedPagesAvatar.map((page) => (
-                  <NavLinkComponent key={page.url} {...page} />
-                ))
-              : ""}
-              </Grid>
-              <Grid item xs={12} sm={6}>
             <Typography sx={{ display: { xs: "none", md: "inline" } }}>
               {isDarkTheme ? "Dark" : "Light"} Mode
             </Typography>
@@ -180,9 +175,21 @@ const MuiNavbar = () => {
             <IconButton onClick={changeTheme}>
               {isDarkTheme ? <WbSunnyIcon /> : <DarkModeIcon />}
             </IconButton>
-            </Grid>
-            </Grid>
-          </Box>
+            </Box>
+            {isLoggedIn
+          ? authedPagesAvatar.map((page) =>
+                  page.url === ROUTES.LOGOUT ? (
+                    <NavLinkComponent
+                      key={page.url}
+                      {...page}
+                      onClick={logoutClick}
+                      // sx={{ display: "flex", justifyContent: "flex-end" }}
+                    />
+                  ) : (
+                    <NavLinkComponent key={page.url} {...page} />
+                  )
+                )
+              :("")}
           {/* hamburger with menu */}
           <Box
             sx={{

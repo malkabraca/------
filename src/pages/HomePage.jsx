@@ -11,7 +11,6 @@ import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
 import CreatComponentNew from "../components/CreatComponentNew";
 
-
 const HomePage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
   const [cardsArr, setCardsArr] = useState(null);
@@ -83,7 +82,7 @@ const HomePage = () => {
     navigate(`/edit/${id}`); //localhost:3000/edit/123213
   };
   const handleMoreInformationFromInitialCardsArr = (id) => {
-     console.log("malki");
+    console.log("malki");
     navigate(`/infor/${id}`); //localhost:3000/edit/123213
   };
   if (!cardsArr) {
@@ -93,6 +92,8 @@ const HomePage = () => {
 
   return (
     <Box>
+       <h1>Home Page</h1>
+      <h3>Here you can fav</h3>
       <Grid container spacing={2}>
         {cardsArr.map((item) => (
           <Grid item xs={4} key={item._id + Date.now()}>
@@ -103,7 +104,17 @@ const HomePage = () => {
               description={item.description}
               img={item.image ? item.image.url : ""}
               phone={item.phone}
-              address={item.state+" "+item.country+" "+item.city+" "+item.street+" "+item.houseNumber}
+              address={
+                item.state +
+                " " +
+                item.country +
+                " " +
+                item.city +
+                " " +
+                item.street +
+                " " +
+                item.houseNumber
+              }
               cardNumber={item.bizNumber}
               onDelete={handleDeleteFromInitialCardsArr}
               onEdit={handleEditFromInitialCardsArr}
@@ -117,15 +128,16 @@ const HomePage = () => {
               // canDelete={payload && (payload.isAdmin)}
               canDelete={
                 payload &&
-                ((payload.isAdmin || (payload.biz &&
-                item.user_id == jwt_decode(localStorage.token)._id)))
+                (payload.isAdmin ||
+                  (payload.biz &&
+                    item.user_id == jwt_decode(localStorage.token)._id))
               }
               deleteFav={deleteHome}
             />
           </Grid>
         ))}
       </Grid>
-      <CreatComponentNew canCreate={payload && payload.biz}/>
+      <CreatComponentNew canCreate={payload && payload.biz} />
     </Box>
   );
 };
