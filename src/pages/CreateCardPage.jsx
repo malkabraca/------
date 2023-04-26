@@ -63,6 +63,7 @@ const CreateCardPage = () => {
 
   const handleCancelBtnClick = (ev) => {
     //move to homepage
+    console.log("handleCancelBtnClick");
     navigate(ROUTES.HOME);
   };
   const handleInputChange = (ev) => {
@@ -144,6 +145,51 @@ const CreateCardPage = () => {
                 inputsErrorsState={inputsErrorsState}
               />
             ))}
+            <Grid item xs={12}>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{ mt: 1, mb: 1 }}
+                // {...(!joiResponse ? { disabled: false } : { disabled: true })}
+                onClick={handleSaveBtnClick}
+                disabled={inputsErrorsState !== null}
+              >
+                Save
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{ mt: 1, mb: 1 }}
+                onClick={handleCancelBtnClick}
+              >
+                Cancel
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Button
+                size="large"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 1, mb: 1 }}
+                //href={ROUTES.REGISTER}
+                onClick={resetForm}
+                endIcon={<CachedIcon />}
+              ></Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Container>
+  );
+};
+
+export default CreateCardPage;
+
+
+
+
 
             {/* <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -409,44 +455,3 @@ const CreateCardPage = () => {
                 </Alert>
               )}
             </Grid> */}
-            <Grid item xs={12}>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{ mt: 1, mb: 1 }}
-                // {...(!joiResponse ? { disabled: false } : { disabled: true })}
-                onClick={handleSaveBtnClick}
-                disabled={inputsErrorsState !== null}
-              >
-                Save
-              </Button>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{ mt: 1, mb: 1 }}
-                onChange={handleCancelBtnClick}
-              >
-                Cancel
-              </Button>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Button
-                size="large"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 1, mb: 1 }}
-                //href={ROUTES.REGISTER}
-                onChange={resetForm}
-                endIcon={<CachedIcon />}
-              ></Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </Box>
-    </Container>
-  );
-};
-
-export default CreateCardPage;

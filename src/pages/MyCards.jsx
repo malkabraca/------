@@ -88,6 +88,8 @@ const MyCards =()=>{
   
     return (
       <Box>
+            <h1>My Cards</h1>
+      <h3>Here you can find business cards you created</h3>
         {cardsArr.length === 0 ? (
         <Box>
         <Typography>You didn't created cards</Typography>
@@ -111,8 +113,9 @@ const MyCards =()=>{
               />
             </Grid>
           ))}
-          <CreatComponentNew canCreate={payload && payload.biz}/>
+       
         </Grid>
+        <CreatComponentNew canCreate={payload && payload.biz}/>
         </Box>
     )}
     </Box>

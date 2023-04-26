@@ -11,7 +11,8 @@
 const About = () => {
   return (
     <Container maxWidth="md">
-      <Typography variant="h4" gutterBottom>About Us</Typography>
+      <Typography variant="h3" gutterBottom>About Us</Typography>
+      <Typography variant="h5" gutterBottom>on this page you can find explanation about using the application </Typography>
       <Typography variant="body1" gutterBottom>
         At [Business Name], we are dedicated to helping businesses of all sizes reach their full potential through effective advertising strategies. Our team of experienced professionals has a proven track record of success, and we are committed to delivering results for our clients.
       </Typography>

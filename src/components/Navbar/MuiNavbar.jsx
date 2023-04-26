@@ -22,11 +22,12 @@ import ROUTES from "../../routes/ROUTES";
 import { darkThemeActions } from "../../store/darkTheme";
 import NavLinkComponent from "./NavLinkComponent";
 import { authActions } from "../../store/auth";
+import Hamburger from "./hamburger";
 
 // access to all
 const pages = [
   {
-    label: <img src="../logo192.png" className="logo" alt="logo"></img>,
+    label: <img src="../2.png" className="logo" alt="logo"></img>,
     url: ROUTES.HOME,
   },
   {
@@ -49,18 +50,6 @@ const notAuthPages = [
 
 //logged in users
 const authedPages = [
-  // {
-  //   label: "creat",
-  //   url: "/creat",
-  // },
-  // {
-  //   label: "Logout",
-  //   url: ROUTES.LOGOUT,
-  // },
-  // {
-  //   label: <Avatar src="/broken-image.jpg" />,
-  //   url: ROUTES.PROFILE,
-  // },
   {
     label: "FavCards",
     url: ROUTES.FAVCARD,
@@ -79,10 +68,6 @@ const authedPagesAvatar = [
 
 //biz pages
 const bizPages = [
-  // {
-  //   label: "Create",
-  //   url: ROUTES.REGISTER,
-  // },
   {
     label: "MyCards",
     url: "/myCards",
@@ -102,19 +87,19 @@ const MuiNavbar = () => {
   );
   const payload = useSelector((bigPie) => bigPie.authSlice.payload);
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  // const [anchorElNav, setAnchorElNav] = React.useState(null);
   const dispatch = useDispatch();
   const isDarkTheme = useSelector(
     (bigPie) => bigPie.darkThemeSlice.isDarkTheme
   );
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+  // const handleOpenNavMenu = (event) => {
+  //   setAnchorElNav(event.currentTarget);
+  // };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  // const handleCloseNavMenu = () => {
+  //   setAnchorElNav(null);
+  // };
 
   const changeTheme = () => {
     dispatch(darkThemeActions.changeTheme());
@@ -175,22 +160,25 @@ const MuiNavbar = () => {
             <IconButton onClick={changeTheme}>
               {isDarkTheme ? <WbSunnyIcon /> : <DarkModeIcon />}
             </IconButton>
-            </Box>
-            {isLoggedIn
-          ? authedPagesAvatar.map((page) =>
-                  page.url === ROUTES.LOGOUT ? (
-                    <NavLinkComponent
-                      key={page.url}
-                      {...page}
-                      onClick={logoutClick}
-                      // sx={{ display: "flex", justifyContent: "flex-end" }}
-                    />
-                  ) : (
-                    <NavLinkComponent key={page.url} {...page} />
-                  )
+          </Box>
+          {isLoggedIn
+            ? authedPagesAvatar.map((page) =>
+                page.url === ROUTES.LOGOUT ? (
+                  <NavLinkComponent
+                    key={page.url}
+                    {...page}
+                    onClick={logoutClick}
+                    // sx={{ display: "flex", justifyContent: "flex-end" }}
+                  />
+                ) : (
+                  <NavLinkComponent key={page.url} {...page} />
                 )
-              :("")}
+              )
+            : ""}
           {/* hamburger with menu */}
+
+          {/* if the current page and the link is the same then it will change the color of the link */}
+          {/*           
           <Box
             sx={{
               flexGrow: 1,
@@ -230,7 +218,7 @@ const MuiNavbar = () => {
                   onClick={handleCloseNavMenu}
                 >
                   <NavLink to={page.url}>
-                    {/* if the current page and the link is the same then it will change the color of the link */}
+                 
                     {({ isActive }) => (
                       <Typography
                         sx={{
@@ -245,7 +233,16 @@ const MuiNavbar = () => {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          </Box> */}
+          <Typography
+            sx={{
+              my: 2,
+              display: { xs: " none", md: "block" },
+              p: 1,
+            }}
+          ></Typography>
+
+          <Hamburger />
         </Toolbar>
       </Container>
     </AppBar>
