@@ -104,7 +104,7 @@ const FavCardsPage = () => {
   return (
     <Box>
       <h1>fav page</h1>
-      <h3>Here you can fav</h3>
+      <h3>Here you can see your favorite business cards</h3>
       <Grid container spacing={2}>
         {cardsArr.map((item) => (
           <Grid item xs={4} key={item[1]._id + Date.now()}>
