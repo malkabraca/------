@@ -1,19 +1,204 @@
+import { useEffect, useState } from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import { useNavigate, useParams } from "react-router-dom";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+
+import ROUTES from "../routes/ROUTES";
+import axios from "axios";
+import { toast } from "react-toastify";
+import CachedIcon from "@mui/icons-material/Cached";
+import { Alert, CircularProgress, TextField } from "@mui/material";
+import CreateIcon from "@mui/icons-material/Create";
+import RegisterPageComponent from "../components/RegisterPagecomponent";
+import validateProfileSchema from "../validation/ProfilePageValidation";
+
 const ProfilePage = () => {
-  return <h1>Profile page</h1>;
+  const { id } = useParams();
+  const [inputState, setInputState] = useState(null);
+  const [inputsErrorState, setinputsErrorState] = useState({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+  const joiResponse = validateProfileSchema(inputState);
+    setinputsErrorState(joiResponse);
+    (async () => {
+      try {
+        const errors = validateProfileSchema();
+        if (errors) {
+          navigate("*");
+          return;
+        } 
+      const { data } = await axios.get("/users/userInfo/");
+
+      let newInputState = {
+        ...data,
+      };
+
+      delete newInputState._id;
+      delete newInputState.isAdmin;
+      delete newInputState.password;
+
+      setInputState(newInputState);
+    } catch (err) {} 
+   
+    })();
+  }, [id]);
+
+  const handeleBtnClick = async (ev) => {
+    try {
+      const joiResponse = validateProfileSchema(inputState);
+      setinputsErrorState(joiResponse);
+      if (!joiResponse) {
+         
+        await axios.put("/users/userInfo", inputState);
+        navigate(ROUTES.LOGIN);
+      }
+       if (inputState.zipCode == "") {
+         inputState.zipCode = null;
+       }
+    } catch (err) {
+      toast.error("errrrrrrrrrrror");
+    }
+  };
+  const shabmit = () => {
+    let newInputState = JSON.parse(JSON.stringify(inputState));
+    newInputState = {
+      firstName: "",
+      middleName: "",
+      lastName: "",
+      phone: "",
+      email: "",
+  /*  password: "", */
+      imageUrl: "",
+      imageAlt: "",
+      state: "",
+      country: "",
+      city: "",
+      street: "",
+      houseNumber: "",
+      zipCode: "",
+      biz: false,
+    };
+    setInputState(newInputState);
+    const joiResponse = validateProfileSchema(inputState);
+    if (!joiResponse) {
+      return;
+    }
+  
+    let newjoiResponse = JSON.parse(JSON.stringify(joiResponse));
+    Object.keys(newjoiResponse).forEach((index) => {
+      newjoiResponse[index] = "";
+    });
+    setinputsErrorState(newjoiResponse);
+  };
+  const handleChange = (ev) => {
+    let newInputState = JSON.parse(JSON.stringify(inputState));
+    newInputState[ev.target.id] = ev.target.value;
+    setInputState(newInputState);
+     
+  };
+  
+  if (!inputState) {
+    return <CircularProgress color="secondary" />;
+  }
+  const handleBizChange = (ev) => {
+    let newInputState = JSON.parse(JSON.stringify(inputState));
+    newInputState["biz"] = ev.target.checked;
+    setInputState(newInputState);
+  };
+  const cancel =()=>{
+    navigate(ROUTES.HOME)
+  }
+  const keys = Object.keys(inputState);
+
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <CreateIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Profile
+        </Typography>
+        <Box component="div" noValidate sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            {keys.map((item) => (
+              <RegisterPageComponent
+                fullWidt={item}
+                key={item}
+                item={item}
+                inputState={inputState}
+                onChange={handleChange}
+                inputsErrorState={inputsErrorState}
+              />
+            ))}
+           
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    id="biz"
+                    value={inputState.biz}
+                    color="primary"
+                    onClick={handleBizChange}
+                  />
+                }
+                label="Signup as business."
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Button
+                variant="contained"
+                fullWidth
+                sx={{ mt: 1, mb: 1 }}
+                color="primary"
+                onClick={cancel}
+              >
+                CANCEL
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Button
+                size="large"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 1, mb: 1 }}
+                onClick={shabmit}
+                endIcon={<CachedIcon />}
+              ></Button>
+            </Grid>
+            <Grid item xs={12} sm={6}></Grid>
+            <Grid item xs={12}>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{ mt: 1, mb: 1 }}
+                /*   disabled={inputsErrorState !== null}  */
+                onClick={handeleBtnClick}
+              >
+                Sign Up
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Container>
+  );
 };
-
-/*
-    TODO:
-    1) joi
-    2) PropTypes:
-        * usually not needed in pages.
-        * when passing props to this component.
-        * commonly we will use PropTypes in Father Child Communication
-    3) inputs
-    4) states
-    5) useEffect
-    6) axios
-    7) MUI
-*/
-
 export default ProfilePage;

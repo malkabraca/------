@@ -12,19 +12,21 @@ const About = () => {
   return (
     <Container maxWidth="md">
       <Typography variant="h3" gutterBottom>About Us</Typography>
-      <Typography variant="h5" gutterBottom>on this page you can find explanation about using the application </Typography>
+      <Typography variant="h5" gutterBottom>Welcome to our business advertising site! </Typography>
       <Typography variant="body1" gutterBottom>
-      Our platform offers a simple and intuitive interface that allows you to post your business card with all the necessary information, including your name, phone number, email address, and physical address. You can also include additional details, such as your job title, company name, and website, to help potential contacts learn more about you and your business.
+      Our platform is designed to help businesses showcase their products and services to potential clients in an easy and efficient manner. Here, you can create a business card that includes all your essential details, such as your business name, phone number, address, and more.
       </Typography>
       <Typography variant="body1" gutterBottom>
-      One of the unique features of our platform is the ability to mark your favorite business cards by clicking on the heart button. This feature makes it easy for you to keep track of the contacts you want to follow up with and stay in touch with over time.
+      What sets our platform apart is our easy-to-use interface, which allows advertisers to edit their business details as and when necessary. This means that you can keep your business card updated with the latest information, ensuring that potential clients always have access to the most accurate details about your business.
       </Typography>
       <Typography variant="body1" gutterBottom>
-      At our platform, we take your privacy seriously and ensure that your personal information is protected. We use the latest encryption technologies and security measures to keep your data safe and secure.
-
+      Another unique feature of our platform is the ability to bookmark your favorite business cards by clicking the heart button. This feature makes it easy for you to follow the contacts you want to follow up with and keep in touch with them over time.
       </Typography>
       <Typography variant="body1" gutterBottom>
-      Whether you are looking to connect with potential clients, partners, or collaborators, our business card exchange platform offers a convenient and effective way to build and grow your professional network. Join us today and start expanding your business opportunities!
+      At our platform, we believe that every business deserves the opportunity to showcase their products and services in the best possible light. That's why we've designed a platform that's not only easy to use but also highly effective in reaching potential clients.
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+      Thank you for choosing our platform to advertise your business. We look forward to helping you grow your business and reach new heights of success!
       </Typography>
     </Container>
   );

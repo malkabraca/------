@@ -58,7 +58,7 @@ function App() {
         pauseOnHover
         theme="colored"
       />
-      <Container>
+      <Container className="scroll-bar">
         <header>
           <MuiNavbar />
         </header>

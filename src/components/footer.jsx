@@ -10,52 +10,11 @@ import InfoIcon from "@mui/icons-material/Info";
 import ROUTES from "../routes/ROUTES";
 import About from "../pages/About";
 import { Grid } from "@mui/material";
-
-// const Footer = () => {
-//   const [value, setValue] = React.useState(0);
-
-//   return (
-//     <Box sx={{ width: 500, margin: "auto" }}>
-//           <BottomNavigation
-//             showLabels
-//             value={value}
-//             onChange={(event, newValue) => {
-//               setValue(newValue);
-//             }}
-//           >
-//             <BottomNavigationAction
-//               label="About"
-//               icon={<InfoIcon />}
-//               component={Link}
-//               to="/about"
-//             />
-//             <BottomNavigationAction
-//               label="Favorites"
-//               icon={<FavoriteIcon />}
-//               component={Link}
-//               to="/favCards"
-//             />
-//             <BottomNavigationAction
-//               label="My Cards"
-//               icon={<CoPresentTwoToneIcon />}
-//               component={Link}
-//               to="/myCards"
-//             />
-//           </BottomNavigation>
-//     </Box>
-//   );
-// };
-// export default Footer;
-
-
-
-// import { BottomNavigation, BottomNavigationAction, Box } from "@mui/material";
-// import InfoIcon from "@mui/icons-material/Info";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
-// import CoPresentTwoToneIcon from "@mui/icons-material/CoPresentTwoTone";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
   const [value, setValue] = React.useState(0);
+  const payload = useSelector((bigPie) => bigPie.authSlice.payload);
 
   return (
     <Box
@@ -84,18 +43,18 @@ const Footer = () => {
           component={Link}
           to="/about"
         />
-        <BottomNavigationAction
+        {payload&&(<BottomNavigationAction
           label="Favorites"
           icon={<FavoriteIcon />}
           component={Link}
           to="/favCards"
-        />
-        <BottomNavigationAction
+        />)}
+        {payload&& (payload.biz || payload.isAdmin)&&(<BottomNavigationAction
           label="My Cards"
           icon={<CoPresentTwoToneIcon />}
           component={Link}
           to="/myCards"
-        />
+        />)}
       </BottomNavigation>
     </Box>
   );

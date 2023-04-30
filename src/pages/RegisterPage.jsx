@@ -56,6 +56,9 @@ const RegisterPage = () => {
       if (joiResponse) {
         return;
       }
+      // if (data.zipCode == "") {
+      //   newInputState.zipCode = null;
+      // }
       await axios.post("/users/register", {
         firstName: inputState.firstName,
         middleName: inputState.middleName,
