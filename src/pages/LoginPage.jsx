@@ -22,12 +22,12 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
-  useEffect(() => {
-    const joiResponse = validateLoginSchema(inputState);
-    setinputsErrorState(joiResponse);
-  },[])
+  // useEffect(() => {
+  //   const joiResponse = validateLoginSchema(inputState);
+  //   setinputsErrorState(joiResponse);
+  // },[])
 
-  const [inputsErrorState, setinputsErrorState] = useState(null);
+  const [inputsErrorState, setinputsErrorState] = useState([]);
   const loggedIn = useLoggedIn();
   const navigate = useNavigate();
 

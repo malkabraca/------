@@ -119,9 +119,9 @@ const CardComponent = ({
 //         </Box>
 //       </CardActions>
 //     </Card>
-<Card sx={{ maxWidth: 345, margin: "auto", mb: 4 }}>
+<Card className="cardrspon">
   <CardActionArea onClick={handleonInforBtnClick}>
-    <CardMedia component="img" image={img} />
+    <CardMedia component="img" image={img} className="imgcard"/>
   </CardActionArea>
   <CardHeader title={title} subheader={subTitle}></CardHeader>
   <CardContent>
@@ -136,7 +136,7 @@ const CardComponent = ({
       flexDirection: { xs: "column", sm: "row" },
     }}
   >
-    <Box
+    <Box 
       sx={{
         display: "flex",
         justifyContent: "flex-start",

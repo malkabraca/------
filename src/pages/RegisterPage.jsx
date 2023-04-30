@@ -39,12 +39,13 @@ const RegisterPage = () => {
     biz: false,
   });
   // let joiResponse = validateRegisterSchema(inputState);
-  useEffect(() => {
-    const joiResponse = validateRegisterSchema(inputState);
-    setinputsErrorState(joiResponse);
-  }, []);
 
-  const [inputsErrorState, setinputsErrorState] = useState(null);
+  // useEffect(() => {
+  //   const joiResponse = validateRegisterSchema(inputState);
+  //   setinputsErrorState(joiResponse);
+  // }, []);
+
+  const [inputsErrorState, setinputsErrorState] = useState([]);
   const navigate = useNavigate();
   const handeleBtnClick = async (ev) => {
     try {

@@ -10,7 +10,6 @@ import Alert from "@mui/material/Alert";
 import EditIcon from "@mui/icons-material/Edit";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-
 import ROUTES from "../routes/ROUTES";
 import validateEditSchema, {
   validateEditCardParamsSchema,
@@ -38,7 +37,7 @@ const EditCardPage = () => {
   //   price: "",
   //   description: "",
   // });
-  const [inputsErrorsState, setInputsErrorsState] = useState({});
+  const [inputsErrorsState, setInputsErrorsState] = useState([]);
   const navigate = useNavigate();
   /*
     const params = useParams();
@@ -69,6 +68,9 @@ const EditCardPage = () => {
           newInputState.alt = data.image.alt;
         } else {
           newInputState.alt = "";
+        }
+        if (data.zipCode == null) {
+          newInputState.zipCode = "";
         }
         delete newInputState.image;
         delete newInputState.likes;

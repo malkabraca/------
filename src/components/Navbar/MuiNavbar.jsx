@@ -5,13 +5,8 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
+
 import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
-import Link from "@mui/icons-material/Link";
 import { Avatar, Grid, Switch } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
@@ -27,7 +22,8 @@ import Hamburger from "./hamburger";
 // access to all
 const pages = [
   {
-    label: <img src="../2.png" className="logo" alt="logo"></img>,
+    // className="logo"
+    label: <img src="../2.png"  alt="logo" className="logo"></img>,
     url: ROUTES.HOME,
   },
   {
@@ -60,11 +56,15 @@ const authedPagesAvatar = [
     label: <Avatar src="/broken-image.jpg" />,
     url: ROUTES.PROFILE,
   },
+];
+const authedPagesLogout = [
+
   {
     label: "Logout",
     url: ROUTES.LOGOUT,
   },
 ];
+
 
 //biz pages
 const bizPages = [
@@ -145,6 +145,20 @@ const MuiNavbar = () => {
                   <NavLinkComponent key={page.url} {...page} />
                 ))
               : ""}
+                     {isLoggedIn
+            ? authedPagesLogout.map((page) =>
+                page.url === ROUTES.LOGOUT ? (
+                  <NavLinkComponent
+                    key={page.url}
+                    {...page}
+                    onClick={logoutClick}
+                    // sx={{ display: "flex", justifyContent: "flex-end" }}
+                  />
+                ) : (
+                  <NavLinkComponent key={page.url} {...page} />
+                )
+              )
+            : ""}
           </Box>
           <SearchPartial />
           <Box

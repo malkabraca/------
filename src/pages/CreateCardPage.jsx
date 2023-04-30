@@ -35,12 +35,12 @@ const CreateCardPage = () => {
     zipCode: "",
   });
   // let joiResponse = validateCreateSchema(inputState);
-  useEffect(() => {
-    const joiResponse = validateCreateSchema(inputState);
-    setInputsErrorsState(joiResponse);
-  }, []);
+  // useEffect(() => {
+  //   const joiResponse = validateCreateSchema(inputState);
+  //   setInputsErrorsState(joiResponse);
+  // }, []);
 
-  const [inputsErrorsState, setInputsErrorsState] = useState(null);
+  const [inputsErrorsState, setInputsErrorsState] = useState([]);
   const navigate = useNavigate();
 
   const handleSaveBtnClick = async (ev) => {
