@@ -23,7 +23,7 @@ import Hamburger from "./hamburger";
 const pages = [
   {
     // className="logo"
-    label: <img src="../2.png"  alt="logo" className="logo"></img>,
+    label: <img src="../1.png"  alt="logo" className="logo"></img>,
     url: ROUTES.HOME,
   },
   {

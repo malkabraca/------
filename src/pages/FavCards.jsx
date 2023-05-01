@@ -25,7 +25,7 @@ const FavCardsPage = () => {
         // console.log("data", data);
         //  console.log("'cardsarr:", cardsArrToFilter);
         let dataArr = Object.entries(data);
-        // console.log("dataArr before change", dataArr);
+        console.log("dataArr before change", dataArr);
         // console.log("cardsArr after creating dataArr", data);
         setCardsArr(
           dataArr.filter((card) =>
@@ -84,6 +84,9 @@ const FavCardsPage = () => {
     // newCardsArr = newCardsArr.filter((item) => item.id != id);
     // setCardsArr(newCardsArr);
     try {
+      if (!payload) {
+        return;
+      }
       await axios.delete("/cards/" + id); // /cards/:id
       setCardsArr((newCardsArr) =>
         newCardsArr.filter((item) => item._id != id)
@@ -126,13 +129,18 @@ const FavCardsPage = () => {
               canEdit={
                 payload &&
                 (payload.biz || payload.isAdmin) &&
-                item[1].user_id == (jwt_decode(localStorage.token)._id)
+                item[1].user_id == jwt_decode(localStorage.token)._id
               }
               // canDelete={payload && (payload.isAdmin)}
               canDelete={
-                payload && payload.isAdmin||
-                (payload.biz  &&
-                item[1].user_id == jwt_decode(localStorage.token)._id)
+                (payload && payload.isAdmin) ||
+                (payload.biz &&
+                  item[1].user_id == jwt_decode(localStorage.token)._id)
+              }
+              canFav={payload}
+              isFav={
+                localStorage.token &&
+                item[1].likes.includes(jwt_decode(localStorage.token)._id)
               }
             />
           </Grid>
@@ -141,6 +149,5 @@ const FavCardsPage = () => {
     </Box>
   );
 };
-
 
 export default FavCardsPage;

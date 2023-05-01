@@ -51,7 +51,8 @@ const SearchPartial = () => {
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
   const handleSearchChange = (e) => {
-    // console.log(e.target.value);
+  //  console.log(e);
+    console.log(e.target.value);
     setSearchInput(e.target.value);
   };
   const handleSearchSubmit = (e) => {

@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
 import CreatComponentNew from "../components/CreatComponentNew";
+import jwt_decode from "jwt-decode";
 
 
 const MyCards =()=>{
@@ -108,8 +109,21 @@ const MyCards =()=>{
                 img={item.image ? item.image.url : ""}
                 onDelete={handleDeleteFromInitialCardsArr}
                 onEdit={handleEditFromInitialCardsArr}
-                canEdit={payload && (payload.biz || payload.isAdmin)}
-                canDelete={payload && (payload.isAdmin)}
+                // canEdit={payload && (payload.biz || payload.isAdmin)}
+                // canDelete={payload && (payload.isAdmin)}
+                canEdit={
+                  payload &&
+                  (payload.biz || payload.isAdmin) &&
+                  item.user_id == jwt_decode(localStorage.token)._id
+                }
+                // canDelete={payload && (payload.isAdmin)}
+                canDelete={
+                  payload &&
+                  (payload.isAdmin ||
+                    (payload.biz &&
+                      item.user_id == jwt_decode(localStorage.token)._id))
+                }
+                canFav={payload}
               />
             </Grid>
           ))}

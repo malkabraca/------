@@ -59,6 +59,7 @@ const ProfilePage = () => {
       if (!joiResponse) {
          
         await axios.put("/users/userInfo", inputState);
+        toast.success("The update was successful You must log in again");
         navigate(ROUTES.LOGIN);
       }
        if (inputState.zipCode == "") {
@@ -118,6 +119,7 @@ const ProfilePage = () => {
     navigate(ROUTES.HOME)
   }
   const keys = Object.keys(inputState);
+  console.log(inputState);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -154,7 +156,7 @@ const ProfilePage = () => {
                 control={
                   <Checkbox
                     id="biz"
-                    value={inputState.biz}
+                    checked={inputState.biz}
                     color="primary"
                     onClick={handleBizChange}
                   />

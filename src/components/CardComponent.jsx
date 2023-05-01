@@ -15,7 +15,7 @@ import {
   Checkbox,
 } from "@mui/material";
 import PropTypes from "prop-types";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import CreateIcon from "@mui/icons-material/Create";
 import CallIcon from "@mui/icons-material/Call";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -38,8 +38,11 @@ const CardComponent = ({
   onInfor,
   canEdit,
   canDelete,
+  canFav,
   deleteFav,
+  isFav,
 }) => {
+  const [favState, setfavState] = useState(isFav);
   const handleDeleteBtnClick = () => {
     console.log("id", id);
     onDelete(id);
@@ -51,9 +54,7 @@ const CardComponent = ({
     console.log("loggg");
     onInfor(id);
   };
-  // const changeTheme = () => {
-  //   dispatch(darkThemeActions.changeTheme());
-  // };
+  
   const isDarkTheme = useSelector(
     (bigPie) => bigPie.darkThemeSlice.isDarkTheme
   );
@@ -62,6 +63,7 @@ const CardComponent = ({
     try {
       await axios.patch("/cards/card-like/" + id);
       deleteFav(id);
+      setfavState(!favState);
     } catch (err) {
       console.log("error when change fav", err.response.data);
     }
@@ -129,14 +131,16 @@ const CardComponent = ({
       <IconButton color="primary" aria-label="add to shopping cart" sx={{ mr: { xs: 1, sm: 2 } }}>
         <CallIcon />
       </IconButton>
-      <IconButton
+      {canFav && (<IconButton
         color="primary"
         aria-label="add to shopping cart"
         onClick={handleLoveBtnClick}
         sx={{ mr: { xs: 1, sm: 2 } }}
       >
-        <FavoriteIcon />
-      </IconButton>
+        <FavoriteIcon
+              style={favState ? { color: "red" } : { color: "blue" }}
+            />
+      </IconButton>)}
     </Box>
   </CardActions>
 </Card>

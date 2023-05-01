@@ -31,12 +31,12 @@ const Router = () => {
   return (
     <Routes>
       <Route path={ROUTES.HOME} element={<HomePage />} />
-      <Route path={ROUTES.FAKEHOME} element={<Navigate to={ROUTES.HOME} />} />
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.ABOUT} element={<About />} />
       <Route path={ROUTES.CREATE} element={<CreateCardPage />} />
       <Route path={ROUTES.FAVCARD} element={<FavCardsPage />} />
+      //ProtectedRoute
       <Route path="/myCards" element={<MyCards />} />
       <Route path="infor/:id" element={<InformationCard />} />
       <Route
@@ -53,6 +53,17 @@ const Router = () => {
           />
         }
       />
+         <Route
+        path={ROUTES.CREATE}
+        element={
+          <SuperProtectedRoute
+            isAdmin={true}
+            isBiz={true}
+            element={<CreateCardPage />}
+          />
+        }
+      />
+
       <Route
         path={ROUTES.PROFILE}
         element={<ProtectedRoute element={<ProfilePage />} />}

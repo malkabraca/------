@@ -49,7 +49,7 @@ const HomePage = () => {
         when component loaded and states not loaded
       */
       setOriginalCardsArr(data);
-      setCardsArr(data.filter((card) => card.title.startsWith(filter)));
+      setCardsArr(data.filter((card) => card.title.startsWith(filter)||card.bizNumber.startsWith(filter)));
       return;
     }
     if (originalCardsArr) {
@@ -58,7 +58,7 @@ const HomePage = () => {
       */
       let newOriginalCardsArr = JSON.parse(JSON.stringify(originalCardsArr));
       setCardsArr(
-        newOriginalCardsArr.filter((card) => card.title.startsWith(filter))
+        newOriginalCardsArr.filter((card) => card.title.startsWith(filter)||card.bizNumber.startsWith(filter)),
       );
     }
   };
@@ -132,7 +132,13 @@ const HomePage = () => {
                   (payload.biz &&
                     item.user_id == jwt_decode(localStorage.token)._id))
               }
+              canFav={payload}
+
               deleteFav={deleteHome}
+              isFav={
+                localStorage.token &&
+                item.likes.includes(jwt_decode(localStorage.token)._id)
+              }
             />
           </Grid>
         ))}
