@@ -23,8 +23,6 @@ import FavCardsPage from "../pages/FavCards";
 import InformationCard from "../pages/InformationCard";
 import SandBox from "../pages/Sandbox";
 
-//element={<ProtectedRoute element={<LogoutPage />} />}
-
 const Router = () => {
   return (
     <Routes>
@@ -44,7 +42,7 @@ const Router = () => {
         path={ROUTES.PROFILE}
         element={<ProtectedRoute element={<ProfilePage />} />}
       />
-          <Route
+      <Route
         path="/myCards"
         element={
           <SuperProtectedRoute
@@ -54,8 +52,8 @@ const Router = () => {
           />
         }
       />
-       <Route
-        path="infor/:id" 
+      <Route
+        path="infor/:id"
         element={
           <SuperProtectedRoute
             isAdmin={true}
@@ -84,28 +82,24 @@ const Router = () => {
           />
         }
       />
-
-      {/* <Route
-        path="/createcard"
+      <Route path="/rp1" element={<RP1 />} />
+      <Route path="/rp2" element={<RP2 />} /> 
+      <Route
+        path="/sandBox"
         element={
           <SuperProtectedRoute
-            isAdmin={false}
-            isBiz={true}
-            element={<CreateCardPage />}
+            isAdmin={true}
+            isBiz={false}
+            element={<SandBox />}
           />
         }
-      /> */}
-      <Route path="/rrp" element={<ReRenderPage />} />
-      <Route path="/usememo" element={<UseMemoPage />} />
-      <Route path="/rp1" element={<RP1 />} />
-      <Route path="/rp2" element={<RP2 />} />
-
-      <Route path="/sandBox" element={<SandBox />}>
+      >
         <Route path="nestedpage1" element={<NestedPage1 />} />
         <Route path="nestedpage2" element={<NestedPage2 />} />
         <Route path="RP1" element={<RP1 />} />
         <Route path="RP2" element={<RP2 />} />
       </Route>
+
       <Route path="*" element={<h1>404</h1>} />
     </Routes>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -21,10 +21,6 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
-  // useEffect(() => {
-  //   const joiResponse = validateLoginSchema(inputState);
-  //   setinputsErrorState(joiResponse);
-  // },[])
 
   const [inputsErrorState, setinputsErrorState] = useState([]);
   const loggedIn = useLoggedIn();
@@ -37,7 +33,6 @@ const LoginPage = () => {
     });
   };
 
-  // let joiResponse = validateLoginSchema(inputState);
   const handleBtnClick = async (ev) => {
     try {
       const joiResponse = validateLoginSchema(inputState);
@@ -51,11 +46,8 @@ const LoginPage = () => {
       const { data } = await axios.post("/users/login", inputState);
       localStorage.setItem("token", data.token);
       loggedIn();
-      //move to homepage
       navigate(ROUTES.HOME);
     } catch (err) {
-      // console.log("login error", err);
-      console.log(err.response.data);
       toast.error("login error"+""+ err.response.data); 
     }
   };

@@ -1,10 +1,9 @@
 import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import axios from "axios";
 
 import CardComponent from "../components/CardComponent";
-import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
@@ -20,23 +19,17 @@ const MyCards =()=>{
     const payload = useSelector((bigPie) => bigPie.authSlice.payload);
   
     useEffect(() => {
-      /*
-        useEffect cant handle async ()=>{}
-        this is why we use the old promise way
-      */
       axios
         .get("cards/my-cards")
         .then(({ data }) => {
           console.log("data", data);
-          // setCardsArr(data);
           filterFunc(data);
         })
         .catch((err) => {
-          console.log("err from axios", err);
-  
-          toast.error("Oops");
+          toast.error("Error from the server"+""+err.response.data);
         });
     }, []);
+
     const filterFunc = (data) => {
       if (!originalCardsArr && !data) {
         return;
@@ -67,20 +60,17 @@ const MyCards =()=>{
       filterFunc();
     }, [qparams.filter]);
     const handleDeleteFromInitialCardsArr = async (id) => {
-      // let newCardsArr = JSON.parse(JSON.stringify(cardsArr));
-      // newCardsArr = newCardsArr.filter((item) => item.id != id);
-      // setCardsArr(newCardsArr);
       try {
-        await axios.delete("/cards/" + id); // /cards/:id
+        await axios.delete("/cards/" + id);
         setCardsArr((newCardsArr) =>
           newCardsArr.filter((item) => item._id != id)
         );
       } catch (err) {
-        console.log("error when deleting", err.response.data);
+        toast.error("error when deleting"+""+ err.response.data);
       }
     };
     const handleEditFromInitialCardsArr = (id) => {
-      navigate(`/edit/${id}`); //localhost:3000/edit/123213
+      navigate(`/edit/${id}`); 
     };
   
     if (!cardsArr) {
@@ -109,14 +99,11 @@ const MyCards =()=>{
                 img={item.image ? item.image.url : ""}
                 onDelete={handleDeleteFromInitialCardsArr}
                 onEdit={handleEditFromInitialCardsArr}
-                // canEdit={payload && (payload.biz || payload.isAdmin)}
-                // canDelete={payload && (payload.isAdmin)}
                 canEdit={
                   payload &&
                   (payload.biz || payload.isAdmin) &&
                   item.user_id == jwt_decode(localStorage.token)._id
                 }
-                // canDelete={payload && (payload.isAdmin)}
                 canDelete={
                   payload &&
                   (payload.isAdmin ||

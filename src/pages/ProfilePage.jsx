@@ -7,18 +7,16 @@ import Checkbox from "@mui/material/Checkbox";
 import { useNavigate, useParams } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
 import ROUTES from "../routes/ROUTES";
 import axios from "axios";
 import { toast } from "react-toastify";
 import CachedIcon from "@mui/icons-material/Cached";
-import { Alert, CircularProgress, TextField } from "@mui/material";
+import {CircularProgress } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import RegisterPageComponent from "../components/RegisterPagecomponent";
-import validateProfileSchema from "../validation/ProfilePageValidation";
+import validateProfileSchema from "../validation/profilePageValidation";
 
 const ProfilePage = () => {
   const { id } = useParams();
@@ -41,13 +39,13 @@ const ProfilePage = () => {
       let newInputState = {
         ...data,
       };
-
       delete newInputState._id;
       delete newInputState.isAdmin;
       delete newInputState.password;
-
       setInputState(newInputState);
-    } catch (err) {} 
+    } catch (err) {
+      toast.error("lError from the server"+""+ err.response.data); 
+    } 
    
     })();
   }, [id]);
@@ -66,7 +64,7 @@ const ProfilePage = () => {
          inputState.zipCode = null;
        }
     } catch (err) {
-      toast.error("errrrrrrrrrrror");
+      toast.error("lError from the server"+""+ err.response.data);
     }
   };
   const shabmit = () => {
@@ -77,7 +75,6 @@ const ProfilePage = () => {
       lastName: "",
       phone: "",
       email: "",
-  /*  password: "", */
       imageUrl: "",
       imageAlt: "",
       state: "",
@@ -88,6 +85,7 @@ const ProfilePage = () => {
       zipCode: "",
       biz: false,
     };
+
     setInputState(newInputState);
     const joiResponse = validateProfileSchema(inputState);
     if (!joiResponse) {
@@ -191,7 +189,6 @@ const ProfilePage = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 1, mb: 1 }}
-                /*   disabled={inputsErrorState !== null}  */
                 onClick={handeleBtnClick}
               >
                 SAVE
