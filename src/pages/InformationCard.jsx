@@ -38,13 +38,11 @@ const InformationCard = () => {
       delete newInputState.user_id;
       delete newInputState.bizNumber;
       delete newInputState.address;
+      delete newInputState.__v;
       setInputState(newInputState);
     })();
   }, [id]);
-  const handeleBtnClick = async (ev) => {
-    await axios.put("/cards/" + id, inputState);
-    navigate(ROUTES.HOME);
-  };
+  
   if (!inputState) {
     return <CircularProgress color="secondary" />;
   }
@@ -109,8 +107,6 @@ const InformationCard = () => {
             Back to home page.
           </Button>
         </Grid>
-        {/* </Grid> */}
-        {/* </Box> */}
       </Box>
     </Container>
   );

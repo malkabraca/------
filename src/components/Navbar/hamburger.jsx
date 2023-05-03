@@ -1,9 +1,6 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -11,11 +8,10 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ROUTES from "../../routes/ROUTES";
 import { authActions } from "../../store/auth";
-import Avatar from "@mui/material/Avatar";
 import NavLinkComponent from "./NavLinkComponent"
 const pages = [
   {
-    label: <img src="../2.png" className="logo" alt="logo"></img>,
+    label: <img src="../1.png" className="logo" alt="logo"></img>,
     url: ROUTES.HOME,
   },
   {
@@ -108,12 +104,6 @@ const Hamburger = () => {
           display: { xs: "block", md: "none" },
         }}
       >
-        {/* {pages.map((page) => (
-          <MenuItem key={"miniLinks" + page.url} onClick={handleCloseNavMenu}>
-           <NavLink to={page.url}>
-            </NavLink> 
-          </MenuItem>
-        ))} */}
          {pages.map((page) => (
           <NavLinkComponent key={page.url} {...page} />
         ))}
@@ -124,7 +114,6 @@ const Hamburger = () => {
                       key={page.url}
                       {...page}
                       onClick={logoutClick}
-                      // sx={{ display: "flex", justifyContent: "flex-end" }}
                     />
                   ) : (
                     <NavLinkComponent key={page.url} {...page} />
@@ -139,23 +128,6 @@ const Hamburger = () => {
         {isLoggedIn && payload.adminPages
           ? adminPages.map((page) => <NavLinkComponent key={page.url} {...page} />)
           : ""}
-
-        {/*  <MenuItem key={"miniLinks" + page.url} onClick={handleCloseNavMenu}>
-          <NavLink to={page.url}>
-            {({ isActive }) => (
-              <Typography
-                sx={{
-                  textAlign: "center",
-                  color: `${isActive ? "#9c27b0" : "#76ff03"}`,
-                }}
-              >
-               {page.label} 
-              </Typography>
-            )}
-        </NavLink>
-        </MenuItem> */}
-        {/*  </Box> */}
-        {/*   ))} */}
         {pages.map((page) => (
           <MenuItem key={"miniLinks" + page.url} onClick={handleCloseNavMenu}>
            <NavLink to={page.url}>

@@ -23,8 +23,6 @@ import FavCardsPage from "../pages/FavCards";
 import InformationCard from "../pages/InformationCard";
 import SandBox from "../pages/Sandbox";
 
-
-
 //element={<ProtectedRoute element={<LogoutPage />} />}
 
 const Router = () => {
@@ -34,14 +32,37 @@ const Router = () => {
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.ABOUT} element={<About />} />
-      <Route path={ROUTES.CREATE} element={<CreateCardPage />} />
-      <Route path={ROUTES.FAVCARD} element={<FavCardsPage />} />
-      //ProtectedRoute
-      <Route path="/myCards" element={<MyCards />} />
-      <Route path="infor/:id" element={<InformationCard />} />
       <Route
         path={ROUTES.LOGOUT}
         element={<ProtectedRoute element={<LogoutPage />} />}
+      />
+      <Route
+        path={ROUTES.FAVCARD}
+        element={<ProtectedRoute element={<FavCardsPage />} />}
+      />
+      <Route
+        path={ROUTES.PROFILE}
+        element={<ProtectedRoute element={<ProfilePage />} />}
+      />
+          <Route
+        path="/myCards"
+        element={
+          <SuperProtectedRoute
+            isAdmin={true}
+            isBiz={true}
+            element={<MyCards />}
+          />
+        }
+      />
+       <Route
+        path="infor/:id" 
+        element={
+          <SuperProtectedRoute
+            isAdmin={true}
+            isBiz={true}
+            element={<InformationCard />}
+          />
+        }
       />
       <Route
         path="/edit/:id"
@@ -53,7 +74,7 @@ const Router = () => {
           />
         }
       />
-         <Route
+      <Route
         path={ROUTES.CREATE}
         element={
           <SuperProtectedRoute
@@ -64,11 +85,7 @@ const Router = () => {
         }
       />
 
-      <Route
-        path={ROUTES.PROFILE}
-        element={<ProtectedRoute element={<ProfilePage />} />}
-      />
-      <Route
+      {/* <Route
         path="/createcard"
         element={
           <SuperProtectedRoute
@@ -77,15 +94,12 @@ const Router = () => {
             element={<CreateCardPage />}
           />
         }
-      />
+      /> */}
       <Route path="/rrp" element={<ReRenderPage />} />
       <Route path="/usememo" element={<UseMemoPage />} />
       <Route path="/rp1" element={<RP1 />} />
       <Route path="/rp2" element={<RP2 />} />
-      {/* <Route path="/nr" element={<NestedRoutePage />}>
-        <Route path="nestedpage1" element={<NestedPage1 />} />
-        <Route path="nestedpage2" element={<NestedPage2 />} />
-      </Route> */}
+
       <Route path="/sandBox" element={<SandBox />}>
         <Route path="nestedpage1" element={<NestedPage1 />} />
         <Route path="nestedpage2" element={<NestedPage2 />} />

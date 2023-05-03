@@ -5,7 +5,6 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 import CardComponent from "../components/CardComponent";
-import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
@@ -19,23 +18,16 @@ const HomePage = () => {
   const payload = useSelector((bigPie) => bigPie.authSlice.payload);
 
   useEffect(() => {
-    /*
-      useEffect cant handle async ()=>{}
-      this is why we use the old promise way
-    */
     axios
       .get("/cards/cards")
       .then(({ data }) => {
-        // console.log("data", data);
-        // setCardsArr(data);
         filterFunc(data);
       })
       .catch((err) => {
-        console.log("err from axios", err);
-
-        toast.error("Oops");
+        toast.error("err from axios" + "" + err.response.data);
       });
   }, []);
+
   const filterFunc = (data) => {
     if (!originalCardsArr && !data) {
       return;
@@ -49,7 +41,12 @@ const HomePage = () => {
         when component loaded and states not loaded
       */
       setOriginalCardsArr(data);
-      setCardsArr(data.filter((card) => card.title.startsWith(filter)||card.bizNumber.startsWith(filter)));
+      setCardsArr(
+        data.filter(
+          (card) =>
+            card.title.startsWith(filter) || card.bizNumber.startsWith(filter)
+        )
+      );
       return;
     }
     if (originalCardsArr) {
@@ -58,7 +55,10 @@ const HomePage = () => {
       */
       let newOriginalCardsArr = JSON.parse(JSON.stringify(originalCardsArr));
       setCardsArr(
-        newOriginalCardsArr.filter((card) => card.title.startsWith(filter)||card.bizNumber.startsWith(filter)),
+        newOriginalCardsArr.filter(
+          (card) =>
+            card.title.startsWith(filter) || card.bizNumber.startsWith(filter)
+        )
       );
     }
   };
@@ -66,24 +66,20 @@ const HomePage = () => {
     filterFunc();
   }, [qparams.filter]);
   const handleDeleteFromInitialCardsArr = async (id) => {
-    // let newCardsArr = JSON.parse(JSON.stringify(cardsArr));
-    // newCardsArr = newCardsArr.filter((item) => item.id != id);
-    // setCardsArr(newCardsArr);
     try {
-      await axios.delete("/cards/" + id); // /cards/:id
+      await axios.delete("/cards/" + id);
       setCardsArr((newCardsArr) =>
         newCardsArr.filter((item) => item._id != id)
       );
     } catch (err) {
-      console.log("error when deleting", err.response.data);
+      toast.error(err.response.data);
     }
   };
   const handleEditFromInitialCardsArr = (id) => {
-    navigate(`/edit/${id}`); //localhost:3000/edit/123213
+    navigate(`/edit/${id}`);
   };
   const handleMoreInformationFromInitialCardsArr = (id) => {
-    console.log("malki");
-    navigate(`/infor/${id}`); //localhost:3000/edit/123213
+    navigate(`/infor/${id}`);
   };
   if (!cardsArr) {
     return <CircularProgress />;
@@ -96,7 +92,7 @@ const HomePage = () => {
       <h3>Here you can find your favorite business cards</h3>
       <Grid container spacing={2}>
         {cardsArr.map((item) => (
-          <Grid item sm={6} md={4} xs={12}  key={item._id + Date.now()}>
+          <Grid item sm={6} md={4} xs={12} key={item._id + Date.now()}>
             <CardComponent
               id={item._id}
               title={item.title}
@@ -119,13 +115,11 @@ const HomePage = () => {
               onDelete={handleDeleteFromInitialCardsArr}
               onEdit={handleEditFromInitialCardsArr}
               onInfor={handleMoreInformationFromInitialCardsArr}
-              // canEdit={payload && (payload.biz || payload.isAdmin)}
               canEdit={
                 payload &&
                 (payload.biz || payload.isAdmin) &&
                 item.user_id == jwt_decode(localStorage.token)._id
               }
-              // canDelete={payload && (payload.isAdmin)}
               canDelete={
                 payload &&
                 (payload.isAdmin ||
@@ -133,9 +127,8 @@ const HomePage = () => {
                     item.user_id == jwt_decode(localStorage.token)._id))
               }
               canFav={payload}
-
               deleteFav={deleteHome}
-              isFav={
+              isFavCards={
                 localStorage.token &&
                 item.likes.includes(jwt_decode(localStorage.token)._id)
               }

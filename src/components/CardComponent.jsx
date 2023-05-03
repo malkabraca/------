@@ -6,13 +6,8 @@ import {
   CardContent,
   Typography,
   CardActions,
-  Button,
-  ThemeProvider,
-  Chip,
-  Icon,
   IconButton,
   Box,
-  Checkbox,
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { Fragment, useState } from "react";
@@ -22,13 +17,11 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { FavoriteBorder } from "@mui/icons-material";
 
 const CardComponent = ({
   img,
   title,
   subTitle,
-  description,
   id,
   phone,
   address,
@@ -40,9 +33,9 @@ const CardComponent = ({
   canDelete,
   canFav,
   deleteFav,
-  isFav,
+  isFavCards,
 }) => {
-  const [favState, setfavState] = useState(isFav);
+  const [favState, setfavState] = useState(isFavCards);
   const handleDeleteBtnClick = () => {
     console.log("id", id);
     onDelete(id);
@@ -54,11 +47,11 @@ const CardComponent = ({
     console.log("loggg");
     onInfor(id);
   };
-  
+
   const isDarkTheme = useSelector(
     (bigPie) => bigPie.darkThemeSlice.isDarkTheme
   );
-  
+
   const handleLoveBtnClick = async () => {
     try {
       await axios.patch("/cards/card-like/" + id);
@@ -69,82 +62,87 @@ const CardComponent = ({
     }
   };
   return (
-<Card className="cardrspon">
-  <CardActionArea onClick={handleonInforBtnClick}>
-    <CardMedia component="img" image={img} className="imgcard"/>
-  </CardActionArea>
-  <CardHeader title={title} subheader={subTitle}></CardHeader>
-  <CardContent>
-    <Typography>{"Phone: " + phone}</Typography>
-    <Typography>{"Address: " + address}</Typography>
-    <Typography>{"Card number:" + cardNumber}</Typography>
-  </CardContent>
-  <CardActions
-    sx={{
-      display: "flex",
-      justifyContent: "space-between",
-      flexDirection: { xs: "column", sm: "row" },
-    }}
-  >
-    <Box 
-      sx={{
-        display: "flex",
-        justifyContent: "flex-start",
-        alignItems: { xs: "flex-start", sm: "center" },
-        flex: { xs: 1, sm: "unset" },
-      }}
-    >
-      {canDelete && (
-        <Fragment>
-          <IconButton
-            color="primary"
-            aria-label="add to shopping cart"
-            onClick={handleDeleteBtnClick}
-            sx={{ mr: { xs: 1, sm: 2 } }}
-          >
-            <DeleteOutlineIcon />
-          </IconButton>
-        </Fragment>
-      )}
-      {canEdit && (
-        <Fragment>
-          <IconButton
-            color="primary"
-            aria-label="add to shopping cart"
-            onClick={handleEditBtnClick}
-            sx={{ mr: { xs: 1, sm: 2 } }}
-          >
-            <CreateIcon />
-          </IconButton>
-        </Fragment>
-      )}
-    </Box>
-
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "flex-end",
-        alignItems: { xs: "flex-end", sm: "center" },
-        flex: { xs: 1, sm: "unset" },
-      }}
-    >
-      <IconButton color="primary" aria-label="add to shopping cart" sx={{ mr: { xs: 1, sm: 2 } }}>
-        <CallIcon />
-      </IconButton>
-      {canFav && (<IconButton
-        color="primary"
-        aria-label="add to shopping cart"
-        onClick={handleLoveBtnClick}
-        sx={{ mr: { xs: 1, sm: 2 } }}
+    <Card className="cardrspon">
+      <CardActionArea onClick={handleonInforBtnClick}>
+        <CardMedia component="img" image={img} className="imgcard" />
+      </CardActionArea>
+      <CardHeader title={title} subheader={subTitle}></CardHeader>
+      <CardContent>
+        <Typography>{"Phone: " + phone}</Typography>
+        <Typography>{"Address: " + address}</Typography>
+        <Typography>{"Card number:" + cardNumber}</Typography>
+      </CardContent>
+      <CardActions
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: { xs: "column", sm: "row" },
+        }}
       >
-        <FavoriteIcon
-              style={favState ? { color: "red" } : { color: "blue" }}
-            />
-      </IconButton>)}
-    </Box>
-  </CardActions>
-</Card>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: { xs: "flex-start", sm: "center" },
+            flex: { xs: 1, sm: "unset" },
+          }}
+        >
+          {canDelete && (
+            <Fragment>
+              <IconButton
+                color="primary"
+                aria-label="add to shopping cart"
+                onClick={handleDeleteBtnClick}
+                sx={{ mr: { xs: 1, sm: 2 } }}
+              >
+                <DeleteOutlineIcon />
+              </IconButton>
+            </Fragment>
+          )}
+          {canEdit && (
+            <Fragment>
+              <IconButton
+                color="primary"
+                aria-label="add to shopping cart"
+                onClick={handleEditBtnClick}
+                sx={{ mr: { xs: 1, sm: 2 } }}
+              >
+                <CreateIcon />
+              </IconButton>
+            </Fragment>
+          )}
+        </Box>
 
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: { xs: "flex-end", sm: "center" },
+            flex: { xs: 1, sm: "unset" },
+          }}
+        >
+          <IconButton
+            color="primary"
+            aria-label="add to shopping cart"
+            sx={{ mr: { xs: 1, sm: 2 } }}
+          >
+            <CallIcon />
+          </IconButton>
+          {canFav && (
+            <IconButton
+              color="primary"
+              aria-label="add to shopping cart"
+              onClick={handleLoveBtnClick}
+              sx={{ mr: { xs: 1, sm: 2 } }}
+            >
+              <FavoriteIcon
+                style={favState ? { color: "red" } : { color: "blue" }}
+              />
+            </IconButton>
+          )}
+        </Box>
+      </CardActions>
+    </Card>
   );
 };
 

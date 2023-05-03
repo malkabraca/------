@@ -1,4 +1,4 @@
-import { Box, Card, CardActionArea, CardContent, CardHeader,  Grid,  Typography } from "@mui/material";
+import { Box,Typography } from "@mui/material";
 
 const InformationComponent =({ inputState,item})=>{
   return (

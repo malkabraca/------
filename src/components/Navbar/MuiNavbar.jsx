@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 
 import Container from "@mui/material/Container";
 import { Avatar, Grid, Switch } from "@mui/material";
-import { NavLink } from "react-router-dom";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 
@@ -19,11 +18,9 @@ import NavLinkComponent from "./NavLinkComponent";
 import { authActions } from "../../store/auth";
 import Hamburger from "./hamburger";
 
-// access to all
 const pages = [
   {
-    // className="logo"
-    label: <img src="../1.png"  alt="logo" className="logo"></img>,
+    label: <img src="../1.png" alt="logo" className="logo"></img>,
     url: ROUTES.HOME,
   },
   {
@@ -32,7 +29,6 @@ const pages = [
   },
 ];
 
-//not logged in users
 const notAuthPages = [
   {
     label: "Register",
@@ -44,7 +40,6 @@ const notAuthPages = [
   },
 ];
 
-//logged in users
 const authedPages = [
   {
     label: "FavCards",
@@ -58,22 +53,18 @@ const authedPagesAvatar = [
   },
 ];
 const authedPagesLogout = [
-
   {
     label: "Logout",
     url: ROUTES.LOGOUT,
   },
 ];
 
-
-//biz pages
 const bizPages = [
   {
     label: "MyCards",
     url: "/myCards",
   },
 ];
-//admin pages
 const adminPages = [
   {
     label: "SANDBOX",
@@ -87,19 +78,10 @@ const MuiNavbar = () => {
   );
   const payload = useSelector((bigPie) => bigPie.authSlice.payload);
 
-  // const [anchorElNav, setAnchorElNav] = React.useState(null);
   const dispatch = useDispatch();
   const isDarkTheme = useSelector(
     (bigPie) => bigPie.darkThemeSlice.isDarkTheme
   );
-
-  // const handleOpenNavMenu = (event) => {
-  //   setAnchorElNav(event.currentTarget);
-  // };
-
-  // const handleCloseNavMenu = () => {
-  //   setAnchorElNav(null);
-  // };
 
   const changeTheme = () => {
     dispatch(darkThemeActions.changeTheme());
@@ -126,7 +108,6 @@ const MuiNavbar = () => {
                       key={page.url}
                       {...page}
                       onClick={logoutClick}
-                      // sx={{ display: "flex", justifyContent: "flex-end" }}
                     />
                   ) : (
                     <NavLinkComponent key={page.url} {...page} />
@@ -145,20 +126,19 @@ const MuiNavbar = () => {
                   <NavLinkComponent key={page.url} {...page} />
                 ))
               : ""}
-                     {isLoggedIn
-            ? authedPagesLogout.map((page) =>
-                page.url === ROUTES.LOGOUT ? (
-                  <NavLinkComponent
-                    key={page.url}
-                    {...page}
-                    onClick={logoutClick}
-                    // sx={{ display: "flex", justifyContent: "flex-end" }}
-                  />
-                ) : (
-                  <NavLinkComponent key={page.url} {...page} />
+            {isLoggedIn
+              ? authedPagesLogout.map((page) =>
+                  page.url === ROUTES.LOGOUT ? (
+                    <NavLinkComponent
+                      key={page.url}
+                      {...page}
+                      onClick={logoutClick}
+                    />
+                  ) : (
+                    <NavLinkComponent key={page.url} {...page} />
+                  )
                 )
-              )
-            : ""}
+              : ""}
           </Box>
           <SearchPartial />
           <Box
@@ -170,7 +150,6 @@ const MuiNavbar = () => {
             <Typography sx={{ display: { xs: "none", md: "inline" } }}>
               {isDarkTheme ? "Dark" : "Light"} Mode
             </Typography>
-            {/* <Switch checked={isDarkTheme} onChange={changeTheme} /> */}
             <IconButton onClick={changeTheme}>
               {isDarkTheme ? <WbSunnyIcon /> : <DarkModeIcon />}
             </IconButton>
@@ -182,72 +161,12 @@ const MuiNavbar = () => {
                     key={page.url}
                     {...page}
                     onClick={logoutClick}
-                    // sx={{ display: "flex", justifyContent: "flex-end" }}
                   />
                 ) : (
                   <NavLinkComponent key={page.url} {...page} />
                 )
               )
             : ""}
-          {/* hamburger with menu */}
-
-          {/* if the current page and the link is the same then it will change the color of the link */}
-          {/*           
-          <Box
-            sx={{
-              flexGrow: 1,
-              flex: 1,
-              display: { xs: "flex", md: "none" },
-              justifyContent: "flex-end",
-            }}
-          >
-            <IconButton
-              size="large"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem
-                  key={"miniLinks" + page.url}
-                  onClick={handleCloseNavMenu}
-                >
-                  <NavLink to={page.url}>
-                 
-                    {({ isActive }) => (
-                      <Typography
-                        sx={{
-                          textAlign: "center",
-                          color: `${isActive ? "red" : ""}`,
-                        }}
-                      >
-                        {page.label}
-                      </Typography>
-                    )}
-                  </NavLink>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
           <Typography
             sx={{
               my: 2,

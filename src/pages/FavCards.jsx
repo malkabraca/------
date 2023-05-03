@@ -22,28 +22,16 @@ const FavCardsPage = () => {
     axios
       .get("/cards/cards")
       .then(({ data }) => {
-        // console.log("data", data);
-        //  console.log("'cardsarr:", cardsArrToFilter);
         let dataArr = Object.entries(data);
-        console.log("dataArr before change", dataArr);
-        // console.log("cardsArr after creating dataArr", data);
         setCardsArr(
           dataArr.filter((card) =>
             card[1]["likes"].includes(jwt_decode(localStorage.token)._id)
           )
         );
       })
-      // console.log("hi - cards Arr");
-      // console.log("data Arr", dataArr);
-      // console.log("data after filter", data);
-      // console.log("cardes arr - :", cardsArr);
       .catch((err) => {
-        console.log("err from axios", err);
-
-        toast.error("Oops");
+        toast.error("Error from the server");
       });
-    console.log("decrypted token -", jwt_decode(localStorage.token));
-    console.log("cards after change", cardsArr);
   }, []);
 
   const delete1 = (id) => {
@@ -63,7 +51,7 @@ const FavCardsPage = () => {
         when component loaded and states not loaded
       */
       setOriginalCardsArr(data);
-      setCardsArr(data.filter((card) => card.title.startsWith(filter)));
+      setCardsArr(data.filter((card) => card.title.startsWith(filter)||card.bizNumber.startsWith(filter)));
       return;
     }
     if (originalCardsArr) {
@@ -72,7 +60,7 @@ const FavCardsPage = () => {
       */
       let newOriginalCardsArr = JSON.parse(JSON.stringify(originalCardsArr));
       setCardsArr(
-        newOriginalCardsArr.filter((card) => card.title.startsWith(filter))
+        newOriginalCardsArr.filter((card) => card.title.startsWith(filter)||card.bizNumber.startsWith(filter))
       );
     }
   };
@@ -80,24 +68,21 @@ const FavCardsPage = () => {
     filterFunc();
   }, [qparams.filter]);
   const handleDeleteFromInitialCardsArr = async (id) => {
-    // let newCardsArr = JSON.parse(JSON.stringify(cardsArr));
-    // newCardsArr = newCardsArr.filter((item) => item.id != id);
-    // setCardsArr(newCardsArr);
     try {
       if (!payload) {
         return;
       }
-      await axios.delete("/cards/" + id); // /cards/:id
+      await axios.delete("/cards/" + id); 
       setCardsArr((newCardsArr) =>
         newCardsArr.filter((item) => item._id != id)
       );
     } catch (err) {
-      console.log("error when deleting", err.response.data);
+      toast.error("error when deleting"+""+ err.response.data);
     }
-    // doRefresh();
   };
+
   const handleEditFromInitialCardsArr = (id) => {
-    navigate(`/edit/${id}`); //localhost:3000/edit/123213
+    navigate(`/edit/${id}`); 
   };
 
   if (!cardsArr) {
@@ -125,20 +110,18 @@ const FavCardsPage = () => {
               deleteFav={delete1}
               onDelete={handleDeleteFromInitialCardsArr}
               onEdit={handleEditFromInitialCardsArr}
-              // canEdit={payload && (payload.biz || payload.isAdmin)}
               canEdit={
                 payload &&
                 (payload.biz || payload.isAdmin) &&
                 item[1].user_id == jwt_decode(localStorage.token)._id
               }
-              // canDelete={payload && (payload.isAdmin)}
               canDelete={
                 (payload && payload.isAdmin) ||
                 (payload.biz &&
                   item[1].user_id == jwt_decode(localStorage.token)._id)
               }
               canFav={payload}
-              isFav={
+              isFavCards={
                 localStorage.token &&
                 item[1].likes.includes(jwt_decode(localStorage.token)._id)
               }

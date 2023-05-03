@@ -14,8 +14,7 @@ import CachedIcon from "@mui/icons-material/Cached";
 import ROUTES from "../routes/ROUTES";
 import validateLoginSchema from "../validation/loginValidation";
 import useLoggedIn from "../hooks/useLoggedIn";
-import { Checkbox, FormControlLabel } from "@mui/material";
-import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [inputState, setInputState] = useState({
@@ -55,7 +54,9 @@ const LoginPage = () => {
       //move to homepage
       navigate(ROUTES.HOME);
     } catch (err) {
-      console.log("login error", err);
+      // console.log("login error", err);
+      console.log(err.response.data);
+      toast.error("login error"+""+ err.response.data); 
     }
   };
   const handleInputChange = (ev) => {

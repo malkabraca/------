@@ -50,7 +50,7 @@ const MyCards =()=>{
           when component loaded and states not loaded
         */
         setOriginalCardsArr(data);
-        setCardsArr(data.filter((card) => card.title.startsWith(filter)));
+        setCardsArr(data.filter((card) => card.title.startsWith(filter)||card.bizNumber.startsWith(filter)));
         return;
       }
       if (originalCardsArr) {
@@ -59,7 +59,7 @@ const MyCards =()=>{
         */
         let newOriginalCardsArr = JSON.parse(JSON.stringify(originalCardsArr));
         setCardsArr(
-          newOriginalCardsArr.filter((card) => card.title.startsWith(filter))
+          newOriginalCardsArr.filter((card) => card.title.startsWith(filter)||card.bizNumber.startsWith(filter))
         );
       }
     };

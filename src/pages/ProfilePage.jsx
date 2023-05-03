@@ -194,7 +194,7 @@ const ProfilePage = () => {
                 /*   disabled={inputsErrorState !== null}  */
                 onClick={handeleBtnClick}
               >
-                Sign Up
+                SAVE
               </Button>
             </Grid>
           </Grid>

@@ -4,12 +4,8 @@ import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ErrorIcon from "@mui/icons-material/Error";
 import CoPresentTwoToneIcon from "@mui/icons-material/CoPresentTwoTone";
 import InfoIcon from "@mui/icons-material/Info";
-import ROUTES from "../routes/ROUTES";
-import About from "../pages/About";
-import { Grid } from "@mui/material";
 import { useSelector } from "react-redux";
 
 const Footer = () => {
