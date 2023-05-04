@@ -43,7 +43,7 @@ const MyCards =()=>{
           when component loaded and states not loaded
         */
         setOriginalCardsArr(data);
-        setCardsArr(data.filter((card) => card.title.startsWith(filter)||card.bizNumber.startsWith(filter)));
+        setCardsArr(data.filter((card) => card.title.startsWith(filter)));
         return;
       }
       if (originalCardsArr) {
@@ -52,7 +52,7 @@ const MyCards =()=>{
         */
         let newOriginalCardsArr = JSON.parse(JSON.stringify(originalCardsArr));
         setCardsArr(
-          newOriginalCardsArr.filter((card) => card.title.startsWith(filter)||card.bizNumber.startsWith(filter))
+          newOriginalCardsArr.filter((card) => card.title.startsWith(filter))
         );
       }
     };
@@ -76,7 +76,7 @@ const MyCards =()=>{
     if (!cardsArr) {
       return <CircularProgress />;
     }
-  
+    console.log(cardsArr);
     return (
       <Box>
             <h1>My Cards</h1>
@@ -97,6 +97,19 @@ const MyCards =()=>{
                 subTitle={item.subTitle}
                 description={item.description}
                 img={item.image ? item.image.url : ""}
+                phone={item.phone}
+                address={
+                  item.state +
+                  " " +
+                  item.country +
+                  " " +
+                  item.city +
+                  " " +
+                  item.street +
+                  " " +
+                  item.houseNumber
+                }
+                cardNumber={item.bizNumber}
                 onDelete={handleDeleteFromInitialCardsArr}
                 onEdit={handleEditFromInitialCardsArr}
                 canEdit={

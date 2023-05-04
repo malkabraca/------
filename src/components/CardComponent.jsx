@@ -83,7 +83,7 @@ const CardComponent = ({
           sx={{
             display: "flex",
             justifyContent: "flex-start",
-            alignItems: { xs: "flex-start", sm: "center" },
+            alignItems: { xs: "flex-start", sm: "flex-end" },
             flex: { xs: 1, sm: "unset" },
           }}
         >
@@ -112,12 +112,11 @@ const CardComponent = ({
             </Fragment>
           )}
         </Box>
-
         <Box
           sx={{
             display: "flex",
             justifyContent: "flex-end",
-            alignItems: { xs: "flex-end", sm: "center" },
+            alignItems: { xs: "flex-end",  sm: "flex-end"  },
             flex: { xs: 1, sm: "unset" },
           }}
         >
@@ -141,6 +140,7 @@ const CardComponent = ({
             </IconButton>
           )}
         </Box>
+      
       </CardActions>
     </Card>
   );

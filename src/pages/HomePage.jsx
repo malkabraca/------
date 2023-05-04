@@ -76,7 +76,8 @@ const HomePage = () => {
     }
   };
   const handleEditFromInitialCardsArr = (id) => {
-    navigate(`/edit/${id}`);
+    const cardToEdit = cardsArr.find((card) => card._id == id);
+    navigate(`/edit/${id}`, { state: { user_id: cardToEdit.user_id } });
   };
   const handleMoreInformationFromInitialCardsArr = (id) => {
     navigate(`/infor/${id}`);

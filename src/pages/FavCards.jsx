@@ -6,7 +6,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 import CardComponent from "../components/CardComponent";
-import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
@@ -20,14 +19,9 @@ const FavCardsPage = () => {
 
   useEffect(() => {
     axios
-      .get("/cards/cards")
+    .get("/cards/get-my-fav-cards")
       .then(({ data }) => {
-        let dataArr = Object.entries(data);
-        setCardsArr(
-          dataArr.filter((card) =>
-            card[1]["likes"].includes(jwt_decode(localStorage.token)._id)
-          )
-        );
+        filterFunc(data)
       })
       .catch((err) => {
         toast.error("Error from the server");
@@ -35,7 +29,7 @@ const FavCardsPage = () => {
   }, []);
 
   const delete1 = (id) => {
-    setCardsArr(cardsArr.filter((card) => card[1]._id !== id));
+    setCardsArr(cardsArr.filter((card) => card._id !== id));
   };
 
   const filterFunc = (data) => {
@@ -95,35 +89,35 @@ const FavCardsPage = () => {
       <h3>Here you can see your favorite business cards</h3>
       <Grid container spacing={2}>
         {cardsArr.map((item) => (
-          <Grid item sm={6} md={4} xs={12} key={item[1]._id + Date.now()}>
+          <Grid item sm={6} md={4} xs={12} key={item._id + Date.now()}>
             <CardComponent
-              id={item[1]._id}
-              phone={item[1].phone}
+              id={item._id}
+              phone={item.phone}
               address={
-                item[1].street + " " + item[1].houseNumber + ", " + item[1].city
+                item.street + " " + item.houseNumber + ", " + item.city
               }
-              cardNumber={item[1].bizNumber}
-              title={item[1].title}
-              subTitle={item[1].subTitle}
-              description={item[1].description}
-              img={item[1].image ? item[1].image.url : ""}
+              cardNumber={item.bizNumber}
+              title={item.title}
+              subTitle={item.subTitle}
+              description={item.description}
+              img={item.image ? item.image.url : ""}
               deleteFav={delete1}
               onDelete={handleDeleteFromInitialCardsArr}
               onEdit={handleEditFromInitialCardsArr}
               canEdit={
                 payload &&
                 (payload.biz || payload.isAdmin) &&
-                item[1].user_id == jwt_decode(localStorage.token)._id
+                item.user_id == jwt_decode(localStorage.token)._id
               }
               canDelete={
                 (payload && payload.isAdmin) ||
                 (payload.biz &&
-                  item[1].user_id == jwt_decode(localStorage.token)._id)
+                  item.user_id == jwt_decode(localStorage.token)._id)
               }
               canFav={payload}
               isFavCards={
                 localStorage.token &&
-                item[1].likes.includes(jwt_decode(localStorage.token)._id)
+                item.likes.includes(jwt_decode(localStorage.token)._id)
               }
             />
           </Grid>

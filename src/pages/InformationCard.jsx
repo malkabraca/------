@@ -8,7 +8,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import ROUTES from "../routes/ROUTES";
 import { CircularProgress, CssBaseline } from "@mui/material";
-import atom from "../logo.svg";
 import { toast } from "react-toastify";
 import InformationComponent from "../components/InformationComponent";
 

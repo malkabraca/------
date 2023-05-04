@@ -22,6 +22,7 @@ import CreateCardPage from "../pages/CreateCardPage";
 import FavCardsPage from "../pages/FavCards";
 import InformationCard from "../pages/InformationCard";
 import SandBox from "../pages/Sandbox";
+import SuperProtectedRouteEdit from "../components/SuperProtectedRouteEdit";
 
 const Router = () => {
   return (
@@ -65,7 +66,7 @@ const Router = () => {
       <Route
         path="/edit/:id"
         element={
-          <SuperProtectedRoute
+          <SuperProtectedRouteEdit
             isAdmin={true}
             isBiz={true}
             element={<EditCardPage />}
