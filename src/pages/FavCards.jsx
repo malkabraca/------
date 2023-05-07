@@ -74,11 +74,14 @@ const FavCardsPage = () => {
       toast.error("error when deleting"+""+ err.response.data);
     }
   };
-
-  const handleEditFromInitialCardsArr = (id) => {
-    navigate(`/edit/${id}`); 
+ const handleEditFromInitialCardsArr = (id) => {
+    const cardToEdit = cardsArr.find((card) => card._id == id);
+    navigate(`/edit/${id}`, { state: { user_id: cardToEdit.user_id } });
   };
 
+  const handleMoreInformationFromInitialCardsArr = (id) => {
+    navigate(`/infor/${id}`);
+  };
   if (!cardsArr) {
     return <CircularProgress />;
   }
@@ -104,6 +107,7 @@ const FavCardsPage = () => {
               deleteFav={delete1}
               onDelete={handleDeleteFromInitialCardsArr}
               onEdit={handleEditFromInitialCardsArr}
+              onInfor={handleMoreInformationFromInitialCardsArr}
               canEdit={
                 payload &&
                 (payload.biz || payload.isAdmin) &&

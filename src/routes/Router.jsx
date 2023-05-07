@@ -83,8 +83,6 @@ const Router = () => {
           />
         }
       />
-      <Route path="/rp1" element={<RP1 />} />
-      <Route path="/rp2" element={<RP2 />} /> 
       <Route
         path="/sandBox"
         element={
@@ -99,6 +97,7 @@ const Router = () => {
         <Route path="nestedpage2" element={<NestedPage2 />} />
         <Route path="RP1" element={<RP1 />} />
         <Route path="RP2" element={<RP2 />} />
+  
       </Route>
 
       <Route path="*" element={<h1>404</h1>} />

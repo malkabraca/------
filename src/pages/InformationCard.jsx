@@ -47,7 +47,7 @@ const InformationCard = () => {
   }
 
   const handleCancelBtnClick = (ev) => {
-    navigate(ROUTES.HOME);
+    navigate(-1);
   };
 
   if (!inputState) {
@@ -103,7 +103,7 @@ const InformationCard = () => {
             color="primary"
             onClick={handleCancelBtnClick}
           >
-            Back to home page.
+            Back to page.
           </Button>
         </Grid>
       </Box>

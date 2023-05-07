@@ -1,3 +1,4 @@
+import { Margin } from "@mui/icons-material";
 import { Box, Container, Typography } from "@mui/material";
 
 const About = () => {
@@ -39,12 +40,16 @@ const About = () => {
         forward to helping you grow your business and reach new heights of
         success!
       </Typography>
-      <Box>
+      {/* <Box>
       <Typography variant="h6" gutterBottom>
       Below is an example of a business card:
       </Typography>
-      <img src="card.png" alt="cart" />
       </Box>
+      <img src="card.png" alt="cart" /> */}
+         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <Typography variant="h6" gutterBottom> Below is an example of a business card: </Typography> 
+          <img src="card.png" alt="cart" /> 
+        </Box>
     </Container>
   );
 };

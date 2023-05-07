@@ -43,7 +43,7 @@ const MyCards =()=>{
           when component loaded and states not loaded
         */
         setOriginalCardsArr(data);
-        setCardsArr(data.filter((card) => card.title.startsWith(filter)));
+        setCardsArr(data.filter((card) =>  card.title.startsWith(filter)||card.bizNumber.startsWith(filter)));
         return;
       }
       if (originalCardsArr) {
@@ -52,7 +52,7 @@ const MyCards =()=>{
         */
         let newOriginalCardsArr = JSON.parse(JSON.stringify(originalCardsArr));
         setCardsArr(
-          newOriginalCardsArr.filter((card) => card.title.startsWith(filter))
+          newOriginalCardsArr.filter((card) =>  card.title.startsWith(filter)||card.bizNumber.startsWith(filter))
         );
       }
     };
@@ -70,9 +70,14 @@ const MyCards =()=>{
       }
     };
     const handleEditFromInitialCardsArr = (id) => {
-      navigate(`/edit/${id}`); 
+      const cardToEdit = cardsArr.find((card) => card._id == id);
+      navigate(`/edit/${id}`, { state: { user_id: cardToEdit.user_id } });
     };
   
+    const handleMoreInformationFromInitialCardsArr = (id) => {
+      navigate(`/infor/${id}`);
+    };
+    
     if (!cardsArr) {
       return <CircularProgress />;
     }
@@ -112,6 +117,7 @@ const MyCards =()=>{
                 cardNumber={item.bizNumber}
                 onDelete={handleDeleteFromInitialCardsArr}
                 onEdit={handleEditFromInitialCardsArr}
+                onInfor={handleMoreInformationFromInitialCardsArr}
                 canEdit={
                   payload &&
                   (payload.biz || payload.isAdmin) &&
