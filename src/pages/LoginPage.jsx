@@ -36,9 +36,6 @@ const LoginPage = () => {
   const handleBtnClick = async (ev) => {
     try {
       const joiResponse = validateLoginSchema(inputState);
-      console.log(joiResponse);
-      setinputsErrorState(joiResponse);
-      console.log(joiResponse);
       setinputsErrorState(joiResponse);
       if (joiResponse) {
         return;

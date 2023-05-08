@@ -40,15 +40,14 @@ const RegisterPage = () => {
   const handeleBtnClick = async (ev) => {
     try {
       const joiResponse = validateRegisterSchema(inputState);
-      console.log(joiResponse);
       setinputsErrorState(joiResponse);
-      console.log(joiResponse);
+
       if (joiResponse) {
         return;
       }
-      // if (data.zipCode == "") {
-      //   newInputState.zipCode = null;
-      // }
+      if (inputState.zipCode == "") {
+        inputState.zipCode = null;
+      }
       await axios.post("/users/register", {
         firstName: inputState.firstName,
         middleName: inputState.middleName,
@@ -68,7 +67,7 @@ const RegisterPage = () => {
       });
       navigate(ROUTES.LOGIN);
     } catch (err) {
-      toast.error("Error from the server"+""+err.response.data);
+      toast.error("There is an error,"+""+err.response.data);
     }
   };
   const handleInputChange = (ev) => {

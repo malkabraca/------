@@ -24,7 +24,7 @@ const FavCardsPage = () => {
         filterFunc(data)
       })
       .catch((err) => {
-        toast.error("Error from the server");
+        toast.error("There is an error,");
       });
   }, []);
 

@@ -4,7 +4,6 @@ let intervalId;
 
 const NestedPage1 = () => {
   useEffect(() => {
-    console.log("component loaded");
     intervalId = setInterval(() => {
       console.log("yes");
     }, 1000);

@@ -27,6 +27,7 @@ const RegisterPageComponent = ({
         name={item}
         fullWidth
         id={item}
+        type={item}
         label={item}
         value={inputState ? inputState[item] : ""}
         onChange={onChange}

@@ -17,6 +17,8 @@ import {CircularProgress } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import RegisterPageComponent from "../components/RegisterPagecomponent";
 import validateProfileSchema from "../validation/profilePageValidation";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 
 const ProfilePage = () => {
   const { id } = useParams();
@@ -39,12 +41,15 @@ const ProfilePage = () => {
       let newInputState = {
         ...data,
       };
+      if (data.zipCode == null) {
+        newInputState.zipCode = "";
+      }
       delete newInputState._id;
       delete newInputState.isAdmin;
       delete newInputState.password;
       setInputState(newInputState);
     } catch (err) {
-      toast.error("lError from the server"+""+ err.response.data); 
+      toast.error("lThere is an error,"+""+ err.response.data); 
     } 
    
     })();
@@ -55,7 +60,9 @@ const ProfilePage = () => {
       const joiResponse = validateProfileSchema(inputState);
       setinputsErrorState(joiResponse);
       if (!joiResponse) {
-         
+        if (inputState.zipCode == "") {
+          inputState.zipCode = null;
+        }
         await axios.put("/users/userInfo", inputState);
         toast.success("The update was successful You must log in again");
         navigate(ROUTES.LOGIN);
@@ -64,7 +71,7 @@ const ProfilePage = () => {
          inputState.zipCode = null;
        }
     } catch (err) {
-      toast.error("lError from the server"+""+ err.response.data);
+      toast.error("lThere is an error,"+""+ err.response.data);
     }
   };
   const shabmit = () => {
@@ -117,8 +124,10 @@ const ProfilePage = () => {
     navigate(ROUTES.HOME)
   }
   const keys = Object.keys(inputState);
-  console.log(inputState);
-
+ 
+  if (inputState.zipCode == "") {
+    inputState.zipCode = null;
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -131,7 +140,7 @@ const ProfilePage = () => {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <CreateIcon />
+        <AccountCircleIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Profile

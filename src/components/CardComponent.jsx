@@ -17,6 +17,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const CardComponent = ({
   img,
@@ -37,14 +38,12 @@ const CardComponent = ({
 }) => {
   const [favState, setfavState] = useState(isFavCards);
   const handleDeleteBtnClick = () => {
-    console.log("id", id);
     onDelete(id);
   };
   const handleEditBtnClick = () => {
     onEdit(id);
   };
   const handleonInforBtnClick = () => {
-    console.log("loggg");
     onInfor(id);
   };
 
@@ -58,7 +57,7 @@ const CardComponent = ({
       deleteFav(id);
       setfavState(!favState);
     } catch (err) {
-      console.log("error when change fav", err.response.data);
+      toast.error("error when change fav", err.response.data);
     }
   };
   return (

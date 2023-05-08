@@ -4,9 +4,10 @@ import validation from "./validation";
 
 const loginSchema = Joi.object({
   email: Joi.string()
-    .email({ tlds: { allow: false } })
-
-    .required(),
+  .min(6)
+  .max(256)
+  .required()
+  .email({ tlds: { allow: false } }),
   password: Joi.string()
     .pattern(new RegExp("^(?=.*[A-Z])(?=.*[a-z]).{0,}$"))
     .messages({
@@ -14,7 +15,7 @@ const loginSchema = Joi.object({
       "string.pattern.base":
         "the password should be supper protected, this mean that its should contain only upper and lower case latter's",
     })
-    .min(2)
+    .min(6)
     .max(10)
     .required(),
 });

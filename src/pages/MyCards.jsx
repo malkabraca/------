@@ -22,11 +22,10 @@ const MyCards =()=>{
       axios
         .get("cards/my-cards")
         .then(({ data }) => {
-          console.log("data", data);
           filterFunc(data);
         })
         .catch((err) => {
-          toast.error("Error from the server"+""+err.response.data);
+          toast.error("There is an error,"+""+err.response.data);
         });
     }, []);
 
@@ -81,7 +80,7 @@ const MyCards =()=>{
     if (!cardsArr) {
       return <CircularProgress />;
     }
-    console.log(cardsArr);
+    
     return (
       <Box>
             <h1>My Cards</h1>

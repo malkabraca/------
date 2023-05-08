@@ -59,7 +59,7 @@ const EditCardPage = () => {
         delete newInputState.address;
         setInputState(newInputState);
       } catch (err) {
-        toast.error("Error from the server"+""+ err.response.data);
+        toast.error("There is an error,"+""+ err.response.data);
       }
     })();
   }, [id]);
@@ -69,11 +69,11 @@ const EditCardPage = () => {
       setInputsErrorsState(joiResponse);
       if (!joiResponse) {
         await axios.put("/cards/" + id, inputState);
+        toast.success("Saved successfully")
         navigate(ROUTES.HOME);
       }
     } catch (err) {
-      console.log("err", err);
-      toast.error("Error from the server"+""+err.response.data);
+      toast.error("There is an error,"+""+err.response.data);
     }
   };
 

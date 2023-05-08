@@ -17,7 +17,6 @@ const authSlice = createSlice({
       state.payload = action.payload;
     },
     logout(state) {
-      console.log("logdut");
       state.isLoggedIn = false;
       state.payload = null;
     },
