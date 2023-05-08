@@ -40,15 +40,9 @@ const About = () => {
         forward to helping you grow your business and reach new heights of
         success!
       </Typography>
-      {/* <Box>
-      <Typography variant="h6" gutterBottom>
-      Below is an example of a business card:
-      </Typography>
-      </Box>
-      <img src="card.png" alt="cart" /> */}
          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Typography variant="h6" gutterBottom> Below is an example of a business card: </Typography> 
-          <img src="card.png" alt="cart" /> 
+          <img src="card.png" alt="card" /> 
         </Box>
     </Container>
   );
