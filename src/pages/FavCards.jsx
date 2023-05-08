@@ -1,6 +1,6 @@
 import jwt_decode from "jwt-decode";
 
-import { Box, CircularProgress, Grid } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
@@ -9,6 +9,7 @@ import CardComponent from "../components/CardComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 import { useSelector } from "react-redux";
+import CreatComponentNew from "../components/CreatComponentNew";
 
 const FavCardsPage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
@@ -90,6 +91,12 @@ const FavCardsPage = () => {
     <Box>
       <h1>fav page</h1>
       <h3>Here you can see your favorite business cards</h3>
+      {originalCardsArr.length === 0 ? (
+        <Box>
+        <Typography>You didn't created cards</Typography>
+        <CreatComponentNew canCreate={payload && payload.biz}/>
+        </Box>
+      ) :(
       <Grid container spacing={2}>
         {cardsArr.map((item) => (
           <Grid item sm={6} md={4} xs={12} key={item._id + Date.now()}>
@@ -127,6 +134,7 @@ const FavCardsPage = () => {
           </Grid>
         ))}
       </Grid>
+      )}
     </Box>
   );
 };

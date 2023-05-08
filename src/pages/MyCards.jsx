@@ -2,7 +2,6 @@ import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate} from "react-router-dom";
 import axios from "axios";
-
 import CardComponent from "../components/CardComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
@@ -85,7 +84,7 @@ const MyCards =()=>{
       <Box>
             <h1>My Cards</h1>
       <h3>Here you can find business cards you created</h3>
-        {cardsArr.length === 0 ? (
+        {originalCardsArr.length === 0 ? (
         <Box>
         <Typography>You didn't created cards</Typography>
         <CreatComponentNew canCreate={payload && payload.biz}/>

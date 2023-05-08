@@ -14,7 +14,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import CachedIcon from "@mui/icons-material/Cached";
 import {CircularProgress } from "@mui/material";
-import CreateIcon from "@mui/icons-material/Create";
 import RegisterPageComponent from "../components/RegisterPagecomponent";
 import validateProfileSchema from "../validation/profilePageValidation";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';

@@ -67,7 +67,7 @@ const bizPages = [
 ];
 const adminPages = [
   {
-    label: "SANDBOX",
+    label: "SandBox",
     url: "/sandBox",
   },
 ];
