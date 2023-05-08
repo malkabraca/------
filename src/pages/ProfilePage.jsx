@@ -108,6 +108,8 @@ const ProfilePage = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
+    const joiResponse = validateProfileSchema(newInputState);
+    setinputsErrorState(joiResponse);
      
   };
   

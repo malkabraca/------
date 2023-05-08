@@ -79,7 +79,7 @@ const MyCards =()=>{
     if (!cardsArr) {
       return <CircularProgress />;
     }
-    
+    const deleteHome = () => {};
     return (
       <Box>
             <h1>My Cards</h1>
@@ -121,6 +121,7 @@ const MyCards =()=>{
                   (payload.biz || payload.isAdmin) &&
                   item.user_id == jwt_decode(localStorage.token)._id
                 }
+               
                 canDelete={
                   payload &&
                   (payload.isAdmin ||
@@ -128,6 +129,11 @@ const MyCards =()=>{
                       item.user_id == jwt_decode(localStorage.token)._id))
                 }
                 canFav={payload}
+                isFavCards={
+                  localStorage.token &&
+                  item.likes.includes(jwt_decode(localStorage.token)._id)
+                }
+                deleteFav={deleteHome}
               />
             </Grid>
           ))}

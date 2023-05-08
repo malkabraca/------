@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 import ROUTES from "../routes/ROUTES";
+import { toast } from "react-toastify";
 
 const ProtectedRoute = ({ element }) => {
   //* logic section

@@ -84,6 +84,8 @@ const EditCardPage = () => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
+    const joiResponse = validateEditSchema(newInputState);
+    setInputsErrorsState(joiResponse);
   };
 
   if (!inputState) {

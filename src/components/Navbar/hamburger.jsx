@@ -47,7 +47,7 @@ const bizPages = [
 ];
 const adminPages = [
   {
-    label: "SANDBOX",
+    label: "SandBox",
     url: "/sandBox",
   },
 ];
@@ -105,35 +105,29 @@ const Hamburger = () => {
         }}
       >
          {pages.map((page) => (
-          <NavLinkComponent key={page.url} {...page} />
+          <NavLinkComponent onClick={handleCloseNavMenu} key={page.url} {...page} />
         ))}
        {isLoggedIn
               ? authedPages.map((page) =>
                   page.url === ROUTES.LOGOUT ? (
-                    <NavLinkComponent
+                    <NavLinkComponent 
                       key={page.url}
                       {...page}
                       onClick={logoutClick}
                     />
                   ) : (
-                    <NavLinkComponent key={page.url} {...page} />
+                    <NavLinkComponent onClick={handleCloseNavMenu} key={page.url} {...page} />
                   )
                 )
               : notAuthPages.map((page) => (
-                  <NavLinkComponent key={page.url} {...page} />
+                  <NavLinkComponent onClick={handleCloseNavMenu} key={page.url} {...page} />
                 ))}
         {isLoggedIn && payload.biz
-          ? bizPages.map((page) => <NavLinkComponent key={page.url} {...page} />)
+          ? bizPages.map((page) => <NavLinkComponent onClick={handleCloseNavMenu} key={page.url} {...page} />)
           : ""}
-        {isLoggedIn && payload.adminPages
-          ? adminPages.map((page) => <NavLinkComponent key={page.url} {...page} />)
+        {isLoggedIn && payload.isAdmin
+          ? adminPages.map((page) => <NavLinkComponent onClick={handleCloseNavMenu} key={page.url} {...page} />)
           : ""}
-        {pages.map((page) => (
-          <MenuItem key={"miniLinks" + page.url} onClick={handleCloseNavMenu}>
-           <NavLink to={page.url}>
-            </NavLink> 
-          </MenuItem>
-        ))}
       </Menu>
     </Box>
   );

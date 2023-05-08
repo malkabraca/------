@@ -126,6 +126,7 @@ const FavCardsPage = () => {
                   item.user_id == jwt_decode(localStorage.token)._id)
               }
               canFav={payload}
+              
               isFavCards={
                 localStorage.token &&
                 item.likes.includes(jwt_decode(localStorage.token)._id)
