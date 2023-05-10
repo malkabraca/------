@@ -27,6 +27,8 @@ const Router = () => {
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.ABOUT} element={<About />} />
+      <Route  path="infor/:id" element={<InformationCard />} />
+
       <Route
         path={ROUTES.LOGOUT}
         element={<ProtectedRoute element={<LogoutPage />} />}
@@ -46,16 +48,6 @@ const Router = () => {
             isAdmin={true}
             isBiz={true}
             element={<MyCards />}
-          />
-        }
-      />
-      <Route
-        path="infor/:id"
-        element={
-          <SuperProtectedRoute
-            isAdmin={true}
-            isBiz={true}
-            element={<InformationCard />}
           />
         }
       />

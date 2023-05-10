@@ -54,10 +54,11 @@ function App() {
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
-        draggable
+        draggable={false}
         pauseOnHover
         theme="colored"
       />
+
       <Container className="scroll-bar">
         <header>
           <MuiNavbar />
