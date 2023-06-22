@@ -113,6 +113,8 @@ const RegisterPage = () => {
     setinputsErrorState(newjoiResponse);
   };
   const keys = Object.keys(inputState);
+  console.log(keys);
+  console.log(inputState);
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
